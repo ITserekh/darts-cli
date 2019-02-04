@@ -15,7 +15,7 @@ export class PlayersService {
       this.players.splice(index, 1);
     }
 
-    addPlayer(name: string, eMail: string) {
-      this.players.push({name: name, eMail: eMail, time: new Date()});
+    addPlayer(name: string, eMail: string, avatar: object) {
+      this.players.push({name: name, eMail: eMail, time: new Date(), avatar: avatar});
     }
 }

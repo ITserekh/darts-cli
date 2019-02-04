@@ -1,4 +1,6 @@
 <h2 class="first-player" *ngIf="!this.playersService.getPlayers().length">Add a new player to start the game</h2>
+<input *ngIf="!avatar" type="file" (change)="onFileChanged($event)">
+<img *ngIf="avatar"  [src]="avatar" width="200px" height="200px">
 <div class="wrapper">
   <div class="form-group">
     <label><h2>Nickname</h2></label>

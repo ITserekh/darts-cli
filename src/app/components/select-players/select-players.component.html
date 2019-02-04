@@ -9,6 +9,7 @@
     <ul>
       <ng-container *ngFor="let player of players">
         <li *ngIf="showItem(player)">
+          <img [src]="player.avatar" width="30px" height="30px">
           <span>{{player.name}}</span>
           <span>{{player.eMail}}</span>
           <span>{{player.time | date:'shortTime'}}</span>
