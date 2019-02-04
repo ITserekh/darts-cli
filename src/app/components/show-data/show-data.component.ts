@@ -11,7 +11,7 @@ import { ComponentDirective } from '../../services/component.directive';
 })
 export class ShowDataComponent implements OnInit {
 
-  num: number = 3;
+  amount: number;
 
   components: ComponentItem[];
 
@@ -29,7 +29,7 @@ export class ShowDataComponent implements OnInit {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.componentHost.viewContainerRef;
     viewContainerRef.clear();
-    viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    componentRef.instance.amount = this.amount;
   }
-
 }

@@ -19,8 +19,13 @@ export class NewsComponent implements OnInit {
 
   ngOnInit() {
     this.getDataService.getJSON(NEWS_URL).subscribe(data => {
-      this.news = data;
+      this.news = this.filter(data);
     });
-    console.log(this.amount);
+  }
+
+  filter(data: News[]): News[] {
+    return data.filter( (news, index) => {
+      return index < this.amount;
+    });
   }
 }

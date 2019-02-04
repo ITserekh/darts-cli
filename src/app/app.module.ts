@@ -33,6 +33,7 @@ import { NewsComponent } from './components/news/news.component';
 import { UsersComponent } from './components/users/users.component';
 import { ComponentDirective } from './services/component.directive';
 import { ComponentService } from './services/component.service';
+import { ShowDataPageComponent } from './pages/show-data-page/show-data-page.component';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { ComponentService } from './services/component.service';
     ShowDataComponent,
     NewsComponent,
     UsersComponent,
-    ComponentDirective
+    ComponentDirective,
+    ShowDataPageComponent
   ],
   providers: [
     PlayersService,

@@ -19,8 +19,13 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.getDataService.getJSON(USER_URL).subscribe(data => {
-      this.users = data;
+      this.users = this.filter(data);
     });
-    console.log(this.amount);
+  }
+
+  filter(data: Users[]): Users[] {
+    return data.filter( (news, index) => {
+      return index < this.amount;
+    });
   }
 }
