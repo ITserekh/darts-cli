@@ -1,0 +1,4 @@
+<ul>
+  <li *ngFor="let game of games" [ngClass]="{'active': selectedGame == game}" (click)="choose(game)">{{ game }}</li>
+</ul>
+<button [disabled]="!selectedGame" [ngClass]="{'active': selectedGame}" routerLink="/game">Start</button>

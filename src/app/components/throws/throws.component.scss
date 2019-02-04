@@ -1,0 +1,88 @@
+.wrapper {
+  margin-top: 50px;
+  padding: 0 50px;
+  border-top: 1px solid #5ec3f4;
+  border-bottom: 1px solid #5ec3f4;
+}
+
+.wrapper-shots {
+  display: flex;
+  justify-content: space-around;
+}
+
+ul.dart {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  height: 40px;
+
+
+  box-sizing: border-box;
+}
+
+ul.dart li {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+ul.dart li span {
+  margin: 0;
+  color: #4d5061;
+  text-align: center;
+  line-height: 34px;
+  background-color: #ffffff;
+  border: 3px solid #4d5061;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+ul.dart li span.active {
+  background-color: #4d5061;
+  color: #ffffff;
+}
+
+ul.dart li span:not(:last-child) {
+  border-right: none;
+}
+
+ul.dart li span:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+ul.dart li input {
+  margin: 0;
+  width: 80px;
+  height: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.add-button {
+  width: 100%;
+  text-align: center;
+}
+
+button.add {
+  display: inline-block;
+  width: 400px;
+  height: 50px;
+  margin: 50px auto;
+  background-color: #ffd726;
+  border-radius: 5px;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+}

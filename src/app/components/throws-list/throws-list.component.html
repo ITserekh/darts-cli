@@ -1,0 +1,27 @@
+<div class="wrapper">
+  <table>
+    <thead>
+      <tr>
+        <td></td>
+        <td *ngFor="let player of players">
+          <h2>{{ player.name }}</h2>
+        </td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let throw of throws | reverse; let number = index">
+        <td> {{ throws.length - number - 1 }} </td>
+        <td class="points" *ngFor="let playerThrow of throw">{{ playerThrow.points }}</td>
+        <td><button (click)="showPoints(number)">i</button></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="hidden">0</td>
+        <td class="points" *ngFor="let playerThrow of throws[throws.length - 1]">{{ playerThrow.points }}</td>
+        <td class="hidden"><button>i</button></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

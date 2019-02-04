@@ -1,0 +1,11 @@
+[
+  { "userID": "01", "firstName": "Vasya", "lastName": "Pupkin" },
+  { "userID": "03", "firstName": "Dmytry", "lastName": "Popov" },
+  { "userID": "04", "firstName": "Vladimir", "lastName": "Putin" },
+  { "userID": "05", "firstName": "Alyexandr", "lastName": "Pushkin" },
+  { "userID": "06", "firstName": "Elena", "lastName": "Solovey" },
+  { "userID": "07", "firstName": "Tony", "lastName": "Stark" },
+  { "userID": "08", "firstName": "Stive", "lastName": "Rogers" },
+  { "userID": "09", "firstName": "Vanda", "lastName": "Maximoff" },
+  { "userID": "10", "firstName": "Bill", "lastName": "Gates" }
+]

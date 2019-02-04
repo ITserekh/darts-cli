@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="wrapper-shots">
+    <div class="shots" *ngFor="let throw of throws; let i=index">
+      <h2>{{ players[i].name }}</h2>
+      <ul class="dart" *ngFor="let dart of [1,2,3]">
+        <li id="{{ dart }}">
+          <input type="number" maxlength="2" min="0"  #points (input)="checkPoint(throw, dart, points)">
+          <span *ngFor="let multiplier of [1,2,3]" [ngClass]="{'active': throw[dart][1] == multiplier}" (click)="selectMultiplier(throw, dart, multiplier)">
+            {{ multiplier }}x
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="add-button">
+    <button class="add" [disabled]="gameOver" (click)="addMove()">Add</button>
+  </div>
+</div>

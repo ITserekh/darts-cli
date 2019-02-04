@@ -1,0 +1,39 @@
+.wrapper {
+  text-align: center;
+  table {
+    width: 95%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    tr {
+      height: 50px;
+    }
+    tbody {
+      tr:last-child {
+        display: none;
+      }
+    }
+    td.points {
+      background-color: #ffffff;
+      border-bottom: 1px solid #039be5;
+    }
+    tfoot {
+      color: #9da5ad;
+      td.hidden {
+        width: 30px;
+        visibility: hidden;
+      }
+    }
+    button {
+      margin: 0;
+      color: #81c0e2;
+      background: none;
+      border: 2px solid #81c0e2;
+      border-radius: 10px;
+    }
+    button:hover {
+      color: #ffd726;
+      border-color: #ffd726;
+      cursor: pointer;
+    }
+  }
+}

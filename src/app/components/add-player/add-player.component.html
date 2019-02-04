@@ -1,0 +1,14 @@
+<h2 class="first-player" *ngIf="!this.playersService.getPlayers().length">Add a new player to start the game</h2>
+<div class="wrapper">
+  <div class="form-group">
+    <label><h2>Nickname</h2></label>
+    <input class="form-control" name="name" [(ngModel)]="playerName" #name="ngModel" maxlength="20" required />
+  </div>
+  <div class="form-group">
+    <label><h2>e-mail</h2></label>
+    <input class="form-control" type="email" name="email" [(ngModel)]="eMail" #email="ngModel" pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" />
+  </div>
+  <div class="form-group">
+    <button [disabled]="name.invalid || email.invalid" class="btn btn-default" (click)="add()">Add</button>
+  </div>
+</div>

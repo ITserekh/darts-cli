@@ -1,0 +1,19 @@
+<div class='wrapper'>
+  <div class="search-box">
+    <input type="text" [(ngModel)]="term" placeholder="Search">
+  </div>
+  <div class="new-player">
+    <button (click)="newPlayer()">New Player</button>
+  </div>
+  <div class="players-list">
+    <ul>
+      <ng-container *ngFor="let player of players">
+        <li *ngIf="showItem(player)">
+          <span>{{player.name}}</span>
+          <span>{{player.eMail}}</span>
+          <button (click)="delete(player)">X</button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
