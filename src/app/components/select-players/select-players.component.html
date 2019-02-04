@@ -11,6 +11,7 @@
         <li *ngIf="showItem(player)">
           <span>{{player.name}}</span>
           <span>{{player.eMail}}</span>
+          <span>{{player.time | date:'shortTime'}}</span>
           <button (click)="delete(player)">X</button>
         </li>
       </ng-container>

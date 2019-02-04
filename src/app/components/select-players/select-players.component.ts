@@ -12,7 +12,7 @@ import { AddPlayerComponent } from '../add-player/add-player.component';
   styleUrls: ['./select-players.component.scss'],
 })
 export class SelectPlayersComponent {
-  term: string = ''; // for storage a search query of player 
+  term: string = ''; // for storage a search query of player
   players: Player[]; // players array to rendering list
 
   constructor(private playersService: PlayersService,
