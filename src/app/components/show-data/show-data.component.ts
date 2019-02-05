@@ -7,7 +7,7 @@ import { ComponentDirective } from '../../services/component.directive';
 @Component({
   selector: 'app-show-data',
   templateUrl: './show-data.component.html',
-  styleUrls: ['./show-data.component.scss']
+  styleUrls: ['./show-data.component.scss'],
 })
 export class ShowDataComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class ShowDataComponent implements OnInit {
   @ViewChild(ComponentDirective) componentHost: ComponentDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
-    private componentService: ComponentService) { }
+              private componentService: ComponentService) { }
 
 
   ngOnInit() {
