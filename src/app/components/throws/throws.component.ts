@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogConfig } from "@angular/material";
+import {Component, OnInit} from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import {Router} from '@angular/router';
 
 import { Player} from '../../services/player';
 import { PlayersService } from '../../services/players.service';
@@ -14,23 +15,29 @@ import { ChooseGameService } from '../../services/choose-game.service';
   templateUrl: './throws.component.html',
   styleUrls: ['./throws.component.scss']
 })
-export class ThrowsComponent {
+export class ThrowsComponent implements OnInit{
   game: Game;
   players: Player[];
   throws: Throw[] = [];
   gameOver: boolean = false;
 
   constructor(private playersService: PlayersService,
-    private chooseGameServise: ChooseGameService,
-    private dialog: MatDialog) {}
+              private chooseGameServise: ChooseGameService,
+              private dialog: MatDialog,
+              private router: Router) {}
 
   ngOnInit() {
     this.game = this.chooseGameServise.getSelectedGame();
-    this.players = this.playersService.getPlayers();
-    
-    this.game.initGame();
 
-    this.addNewThrow();
+    if (!this.game) {
+      console.log('Game is not init');
+      this.router.navigate(['/setting']);
+    } else {
+      this.players = this.playersService.getPlayers();
+      this.game.initGame();
+
+      this.addNewThrow();
+    }
   }
 
   addNewThrow() {
@@ -43,7 +50,6 @@ export class ThrowsComponent {
 
   addMove() {
     const winners: number[] = this.game.doMove(this.throws);
-    // 
     if (winners.length > 0) {
       this.gameOver = true;
       const dialogConfig = new MatDialogConfig();
