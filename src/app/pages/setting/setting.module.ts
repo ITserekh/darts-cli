@@ -1,6 +1,7 @@
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material';
 
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingPageComponent } from './setting-page.component';
@@ -9,20 +10,22 @@ import { SelectPlayersComponent } from '../../components/select-players/select-p
 import { ChooseGameComponent } from '../../components/choose-game/choose-game.component';
 
 import { SharedModule } from '../../shared.module';
+import { AddPlayerModule } from '../../components/add-player/add-player.module';
 
 @NgModule({
   declarations:
     [
       SettingPageComponent,
       SelectPlayersComponent,
-      ChooseGameComponent,
+      ChooseGameComponent
     ],
   imports: [
     CommonModule,
     SettingRoutingModule,
     FormsModule,
-    SharedModule
-  ],
-  schemas: [NO_ERRORS_SCHEMA]
+    SharedModule,
+    AddPlayerModule,
+    MatDialogModule
+  ]
 })
 export class SettingModule { }

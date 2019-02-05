@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: './pages/show-data-page/show-data.module#ShowDataModule'
   },
   {
+    path: 'login',
+    loadChildren: './pages/login-page/login-page.module#LoginPageModule'
+  },
+  {
     path: '',
     redirectTo: 'setting',
     pathMatch: 'full'

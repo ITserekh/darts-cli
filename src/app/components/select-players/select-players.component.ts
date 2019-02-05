@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatDialog, MatDialogConfig } from "@angular/material";
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import {Router} from '@angular/router';
 
 import { Player} from '../../services/player';
 import { PlayersService } from '../../services/players.service';
@@ -11,12 +12,13 @@ import { AddPlayerComponent } from '../add-player/add-player.component';
   templateUrl: './select-players.component.html',
   styleUrls: ['./select-players.component.scss'],
 })
-export class SelectPlayersComponent {
+export class SelectPlayersComponent implements OnInit{
   term: string = ''; // for storage a search query of player
   players: Player[]; // players array to rendering list
 
   constructor(private playersService: PlayersService,
-    private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private router: Router) {}
 
   ngOnInit() {
     // get list of players under init this component
@@ -39,26 +41,20 @@ export class SelectPlayersComponent {
     // return true if somewhere is a match
     return (nameCondition || eMailCondition);
   }
-  
-  newPlayer() {
-    // config for modal dialog 
-    const dialogConfig = new MatDialogConfig();
 
+  newPlayer() {
+    // config for modal dialog
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = true;
     dialogConfig.width = '400px';
-    //open dialog to add new player
+    // open dialog to add new player
     this.dialog.open(AddPlayerComponent, dialogConfig);
   }
 
   // if there is no player create a new one
   isPlayer() {
     if (!this.players.length) {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.hasBackdrop = true;
-      dialogConfig.width = '400px';
-      //open dialog to add new player
-      setTimeout(() => this.dialog.open(AddPlayerComponent, dialogConfig));
+      this.router.navigate(['/login']);
     }
   }
 }

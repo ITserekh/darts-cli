@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 import { PlayersService } from '../../services/players.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'add-player',
@@ -15,12 +16,14 @@ export class AddPlayerComponent {
   avatar: object;
 
   constructor(private playersService: PlayersService,
-              private dialogRef: MatDialogRef<AddPlayerComponent>) {}
+              private router: Router
+              /* private dialogRef: MatDialogRef<AddPlayerComponent>*/) {}
 
   // add new player
   add() {
-    this.dialogRef.close();
+    // this.dialogRef.close();
     this.playersService.addPlayer(this.playerName, this.eMail, this.avatar);
+    this.router.navigate(['/setting']);
   }
 
   onFileChanged(event) {
