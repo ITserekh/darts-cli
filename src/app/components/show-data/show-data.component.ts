@@ -34,7 +34,7 @@ export class ShowDataComponent implements OnInit {
     viewContainerRef.clear();
     /* const componentRef = viewContainerRef.createComponent(componentFactory); */
     viewContainerRef.createComponent(componentFactory);
-    // this.showData(this.components[this.numberCurrentComponent].route);
+    this.showData(this.components[this.numberCurrentComponent].route);
   }
 
   showData(component: Type<DataComponent<any>>) {

@@ -15,10 +15,14 @@ export class NewsComponent implements OnInit, DataComponent<NewsData> {
   data: NewsData;
 
   constructor(private filterNewsService: FilterNewsService) {
+    console.log('news');
+    filterNewsService.trigger.subscribe(res => {
+      console.log(res);
+      this.news = res});
   }
 
   ngOnInit() {
-    this.news = this.filterNewsService.getFiltredNews();
+    // this.news = this.filterNewsService.getFiltredNews();
   }
 
 }

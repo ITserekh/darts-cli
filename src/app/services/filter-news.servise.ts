@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { GetDataService } from './get-data.service';
 import { NewsData } from './data-component';
 import { News } from './news';
+import { Subject } from 'rxjs';
 
 
 @Injectable()
@@ -10,11 +11,19 @@ export class FilterNewsService implements FilterService {
 
   news: News[] = [];
 
+  private triggerSource = new Subject<News[]>();
+
+  trigger = this.triggerSource.asObservable();
+
   constructor(private getDataService: GetDataService) {}
 
   filter(url: string, data: NewsData) {
-    this.getDataService.getJSON(url).subscribe(res => this.news = res);
+    this.getDataService.getJSON(url).subscribe(res => {
+      this.news = res;
+      this.triggerSource.next(this.news);
+    });
     console.log('Filter News Service');
+
   }
 
   getFiltredNews() {
