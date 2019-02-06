@@ -1,31 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { GetDataService } from '../../services/get-data.service';
+import { Component, OnInit} from '@angular/core';
+import { DataComponent, NewsData } from '../../services/data-component';
 import { News } from '../../services/news';
-
-import { NEWS_URL } from '../../services/urls';
+import { FilterNewsService } from '../../services/filter-news.servise';
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent implements OnInit {
-
-  @Input() amount: number;
+export class NewsComponent implements OnInit, DataComponent<NewsData> {
 
   news: News[];
 
-  constructor(private getDataService: GetDataService) { }
+  data: NewsData;
+
+  constructor(private filterNewsService: FilterNewsService) {
+  }
 
   ngOnInit() {
-    this.getDataService.getJSON(NEWS_URL).subscribe(data => {
-      this.news = this.filter(data);
-    });
+    this.news = this.filterNewsService.getFiltredNews();
   }
 
-  filter(data: News[]): News[] {
-    return data.filter( (news, index) => {
-      return index < this.amount;
-    });
-  }
 }

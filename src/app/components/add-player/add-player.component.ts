@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'add-player',
   templateUrl: './add-player.component.html',
-  styleUrls: ['./add-player.component.scss'],
+  styleUrls: ['./add-player.component.scss']
 })
 export class AddPlayerComponent {
   playerName: string;
@@ -16,7 +16,7 @@ export class AddPlayerComponent {
   avatar: object;
 
   constructor(private playersService: PlayersService,
-              private router: Router
+              private router: Router,
               /* private dialogRef: MatDialogRef<AddPlayerComponent>*/) {}
 
   // add new player

@@ -13,7 +13,7 @@ import { Game501Service } from './services/game501.service';
 import { Game301Service } from './services/game301.service';
 import { ChooseGameService } from './services/choose-game.service';
 import { GetDataService } from './services/get-data.service';
-
+import { FilterNewsService } from './services/filter-news.servise';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ShowPointsComponent } from './components/show-points/show-points.component';
@@ -42,7 +42,8 @@ import { ComponentService } from './services/component.service';
     ThrowService,
     ChooseGameService,
     GetDataService,
-    ComponentService
+    ComponentService,
+    FilterNewsService
   ],
   entryComponents: [
     ShowPointsComponent,

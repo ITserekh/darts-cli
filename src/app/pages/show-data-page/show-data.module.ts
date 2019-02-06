@@ -8,8 +8,11 @@ import { ShowDataComponent } from '../../components/show-data/show-data.componen
 
 import { UsersComponent } from '../../components/users/users.component';
 import { NewsComponent } from '../../components/news/news.component';
+import { NewsFilterComponent } from '../../components/news-filter/news-filter.component';
+import { UsersFilterComponent } from '../../components/users-filter/users-filter.component';
 
 import { ComponentDirective } from '../../services/component.directive';
+import { FilterDirective } from '../../services/component.directive';
 
 @NgModule({
   declarations:
@@ -18,7 +21,10 @@ import { ComponentDirective } from '../../services/component.directive';
       ShowDataComponent,
       UsersComponent,
       NewsComponent,
-      ComponentDirective
+      ComponentDirective,
+      FilterDirective,
+      NewsFilterComponent,
+      UsersFilterComponent
     ],
   imports: [
     CommonModule,
@@ -28,8 +34,9 @@ import { ComponentDirective } from '../../services/component.directive';
   entryComponents:
     [
       UsersComponent,
-      NewsComponent
+      NewsComponent,
+      NewsFilterComponent,
+      UsersFilterComponent
     ]
-  // schemas: [NO_ERRORS_SCHEMA]
 })
 export class ShowDataModule { }

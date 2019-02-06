@@ -8,3 +8,14 @@ export class ComponentDirective {
   constructor(public viewContainerRef: ViewContainerRef) { }
 
 }
+
+@Directive({
+  selector: '[filter-host]'
+})
+export class FilterDirective {
+
+  constructor(public viewContainerRef: ViewContainerRef) { }
+
+}
+
+
