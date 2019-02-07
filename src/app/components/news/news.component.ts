@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { DataComponent, NewsData } from '../../services/data-component';
 import { News } from '../../services/news';
 import { FilterNewsService } from '../../services/filter-news.servise';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-news',
@@ -10,19 +11,17 @@ import { FilterNewsService } from '../../services/filter-news.servise';
 })
 export class NewsComponent implements OnInit, DataComponent<NewsData> {
 
-  news: News[];
+  // news: News[];
 
   data: NewsData;
 
+  dataAsync: Observable<News[]>;
+
   constructor(private filterNewsService: FilterNewsService) {
-    console.log('news');
-    filterNewsService.trigger.subscribe(res => {
-      console.log(res);
-      this.news = res});
+    this.dataAsync = filterNewsService.trigger;
   }
 
   ngOnInit() {
-    // this.news = this.filterNewsService.getFiltredNews();
   }
 
 }

@@ -14,12 +14,14 @@ import { Game301Service } from './services/game301.service';
 import { ChooseGameService } from './services/choose-game.service';
 import { GetDataService } from './services/get-data.service';
 import { FilterNewsService } from './services/filter-news.servise';
+import { FilterUsersService } from './services/filter-users.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ShowPointsComponent } from './components/show-points/show-points.component';
 import { ShowWinnerComponent } from './components/show-winner/show-winner.component';
 
 import { ComponentService } from './services/component.service';
+
 
 @NgModule({
   imports: [
@@ -43,7 +45,8 @@ import { ComponentService } from './services/component.service';
     ChooseGameService,
     GetDataService,
     ComponentService,
-    FilterNewsService
+    FilterNewsService,
+    FilterUsersService
   ],
   entryComponents: [
     ShowPointsComponent,

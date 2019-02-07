@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, Type } from '@angular/core';
-import {DataComponent, DataFilterComponent, IData} from '../../services/data-component';
+import { DataComponent, DataFilterComponent, IData} from '../../services/data-component';
 
 import { ComponentItem } from '../../services/component-item';
 import { ComponentService } from '../../services/component.service';
-import {ComponentDirective, FilterDirective} from '../../services/component.directive';
+import { ComponentDirective, FilterDirective } from '../../services/component.directive';
 
 @Component({
   selector: 'app-show-data',

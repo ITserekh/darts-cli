@@ -1,4 +1,4 @@
-<div *ngFor="let item of news">
+<div *ngFor="let item of dataAsync | async">
   <h2>{{ item.title }}</h2>
   <p>{{ item.date }}</p>
   <p>{{ item.text }}</p>

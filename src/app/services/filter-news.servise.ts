@@ -20,26 +20,17 @@ export class FilterNewsService implements FilterService {
   filter(url: string, data: NewsData) {
     this.getDataService.getJSON(url).subscribe(res => {
       this.news = res;
+      this.news = this.filterData(data);
       this.triggerSource.next(this.news);
     });
-    console.log('Filter News Service');
-
   }
 
-  getFiltredNews() {
-    return this.news;
-  }
-
-  /*
-
-  filter(filterValues: NewsData) {
-    const result =
-      this.news.filter(item => {
+  filterData(filterValues: NewsData): News[] {
+      return this.news.filter(item => {
         return item.text.indexOf(filterValues.filter) > -1 || item.title.indexOf(filterValues.filter) > -1;
       }).filter(item => {
         return this.isInPeriod(item.date, filterValues.numberOfDays); // isPeriod
       });
-    // this.onFilter.emit(result);
   }
 
   isInPeriod(date: string, numberOfDays) {
@@ -49,5 +40,4 @@ export class FilterNewsService implements FilterService {
     // TODO refactoring
     return !numberOfDays ? true : today - checkDay < numberOfDays;
   }
-   */
 }

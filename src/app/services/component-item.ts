@@ -6,7 +6,5 @@ import {FilterService} from './filter.service';
 export class ComponentItem {
   constructor(public route: Type<DataComponent<IData>>,
               public name: string,
-              public filter: Type<DataFilterComponent>,
-              public filterService: Type<FilterService>,
-              ) {}
+              public filter: Type<DataFilterComponent>) {}
 }

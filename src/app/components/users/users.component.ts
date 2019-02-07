@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Users } from '../../services/users';
 
+import { FilterUsersService } from '../../services/filter-users.service';
+
 import {DataComponent, UsersData} from '../../services/data-component';
 
 @Component({
@@ -14,7 +16,11 @@ export class UsersComponent implements OnInit, DataComponent<UsersData> {
 
   users: Users[];
 
-  constructor() { }
+  constructor(private filterUsersService: FilterUsersService) {
+    filterUsersService.trigger.subscribe(res => {
+      this.users = res;
+    });
+  }
 
   ngOnInit() {
   }

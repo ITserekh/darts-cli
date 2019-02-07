@@ -1,0 +1,7 @@
+[
+  { "name": "userId", "title": "ID" },
+  { "name": "lastName", "title": "Name" },
+  { "name": "age", "title": "Age" },
+  { "name": "date", "title": "Date" },
+  { "name": "avatar", "title": "Avatar"}
+]

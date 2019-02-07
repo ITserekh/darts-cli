@@ -2,8 +2,10 @@ export interface DataComponent<T extends IData> {
   data: T;
 }
 
-export interface DataFilterComponent {}
-  // filter(data: IData);
+export interface DataFilterComponent {
+  filter();
+}
+
 
 export interface IData {
   dataF?: string;

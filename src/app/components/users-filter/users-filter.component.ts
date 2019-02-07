@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DataComponent, DataFilterComponent, UsersData} from '../../services/data-component';
-import {GetDataService} from '../../services/get-data.service';
-import {USER_URL} from '../../services/urls';
-import {Users} from '../../services/users';
+import { DataFilterComponent, UsersData } from '../../services/data-component';
+import { GetDataService } from '../../services/get-data.service';
+import { USER_URL } from '../../services/urls';
+import { FilterUsersService } from '../../services/filter-users.service';
 
 @Component({
   selector: 'app-users-filter',
@@ -12,11 +12,15 @@ import {Users} from '../../services/users';
 export class UsersFilterComponent implements OnInit, DataFilterComponent {
 
   data: UsersData;
-  users: Users[];
 
-  constructor(private getDataService: GetDataService) { }
+  constructor(private getDataService: GetDataService,
+              private filterUserService: FilterUsersService) { }
 
   ngOnInit() {
+    this.data = {Id: 0, userInfo: ''};
   }
-  filter(data: UsersData) {}
+
+  filter() {
+    this.filterUserService.filter(USER_URL, this.data);
+  }
 }

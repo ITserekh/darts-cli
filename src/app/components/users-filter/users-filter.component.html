@@ -1,3 +1,3 @@
-<p>ID</p><input type="number">
-<p>User</p><input type="text">
-<button>Search Users</button>
+<p>ID</p><input type="number" [(ngModel)]="data.Id">
+<p>User</p><input type="text" [(ngModel)]="data.userInfo">
+<button (click)="filter()">Search Users</button>

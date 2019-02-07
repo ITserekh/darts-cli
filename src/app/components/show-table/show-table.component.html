@@ -1,0 +1,37 @@
+<table>
+  <tr>
+    <td *ngFor="let columnTableName of tableSetting | async">
+      {{ columnTableName.title }}
+    </td>
+  </tr>
+
+
+</table>
+<!--
+<table>
+  <tr *ngFor="let user of usersAsync | async">
+    <td>
+      <ng-container *ngTemplateOutlet="userIdTemplate; context: {$implicit: user.userID}"></ng-container>
+    </td>
+    <td>
+      <ng-container *ngTemplateOutlet="userNameTemplate; context: {$implicit: user.lastName}"></ng-container>
+    </td>
+    <td>
+      <ng-container *ngTemplateOutlet="userAgeTemplate; context: {$implicit: user.age}"></ng-container>
+    </td>
+    <td>
+      <ng-container *ngTemplateOutlet="userDateTemplate; context: {$implicit: user.date}"></ng-container>
+    </td>
+    <td>
+      <ng-container *ngTemplateOutlet="userAvatarTemplate; context: {$implicit: user.avatar}"></ng-container>
+    </td>
+  </tr>
+</table>
+-->
+<!--
+<ng-container *ngFor="let user of usersAsync | async">
+  <ng-container *ngTemplateOutlet="userIdTemplate; context: {$implicit: user.userID}"></ng-container>
+  <ng-container *ngTemplateOutlet="userNameTemplate; context: {$implicit: user.lastName}"></ng-container>
+  <ng-container *ngTemplateOutlet="userAgeTemplate; context: {$implicit: user.age}"></ng-container>
+</ng-container>
+-->

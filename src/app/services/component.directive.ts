@@ -15,7 +15,4 @@ export class ComponentDirective {
 export class FilterDirective {
 
   constructor(public viewContainerRef: ViewContainerRef) { }
-
 }
-
-

@@ -1,1 +1,35 @@
 <app-show-data></app-show-data>
+<hr>
+<app-show-table
+  [tableSetting]="settingTable"
+  [data]="usersAsync"
+>
+  <!--передать конфиг-->
+  <!--передать данные-->
+</app-show-table>
+
+
+<!--
+<app-show-table>
+  <ng-template userId let-id>
+    <p>{{ id }}</p>
+  </ng-template>
+  <ng-template userName let-name>
+    <p>{{ name }}</p>
+  </ng-template>
+  <ng-template userAge let-age>
+    <p>{{ age }}</p>
+  </ng-template>
+  <ng-template userDate let-date>
+    <p>{{ date }}</p>
+  </ng-template>
+  <ng-template userAvatar let-avatar>
+    <p>{{ avatar }}</p>
+  </ng-template>
+</app-show-table>
+-->
+  <!--
+  <div *userId="let userId">{{ userId }}</div>
+  <div *userName="let name">{{ name }}</div>
+  <div *userAge="let age">{{ age }}</div>
+  -->
