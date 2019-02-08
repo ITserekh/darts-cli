@@ -1,7 +1,7 @@
 [
-  { "name": "userID", "title": "ID" },
-  { "name": "lastName", "title": "Name" },
-  { "name": "age", "title": "Age" },
-  { "name": "date", "title": "Date" },
-  { "name": "avatar", "title": "Avatar"}
+  { "name": "userID", "title": "ID", "filter": "stringFilter" },
+  { "name": "lastName", "title": "Name", "filter": "stringFilter" },
+  { "name": "age", "title": "Age", "filter": "stringFilter" },
+  { "name": "date", "title": "Date", "filter": "dateFilter" },
+  { "name": "avatar", "title": "Avatar", "filter": ""}
 ]

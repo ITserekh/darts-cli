@@ -1,42 +1,20 @@
 <table>
   <tr>
-    <td *ngFor="let columnTableName of tableSetting | async">
-      {{ columnTableName.title }}
+    <td *ngFor="let itemSetting of tableSetting | async">
+      {{ itemSetting.title }}
+      <input *ngIf="itemSetting.filter">
     </td>
   </tr>
-  <tr *ngFor="let item of data | async">
-    <td *ngFor="let column of tableSetting | async">
-      {{ item[column.name] }}
-    </td>
-  </tr>
+  <ng-container *ngFor="let row of data | async">
+    <ng-container *ngTemplateOutlet="templateRow; context: {row: row, tableSetting: tableSetting}"></ng-container>
+      <ng-template #templateRow let-row="row" let-tableSetting="tableSetting">
+        <tr>
+          <td *ngFor="let column of tableSetting | async">
+            {{ row[column.name] }}
+          </td>
+        </tr>
+      </ng-template>
+  </ng-container>
+</table>
 
 
-</table>
-<!--
-<table>
-  <tr *ngFor="let user of usersAsync | async">
-    <td>
-      <ng-container *ngTemplateOutlet="userIdTemplate; context: {$implicit: user.userID}"></ng-container>
-    </td>
-    <td>
-      <ng-container *ngTemplateOutlet="userNameTemplate; context: {$implicit: user.lastName}"></ng-container>
-    </td>
-    <td>
-      <ng-container *ngTemplateOutlet="userAgeTemplate; context: {$implicit: user.age}"></ng-container>
-    </td>
-    <td>
-      <ng-container *ngTemplateOutlet="userDateTemplate; context: {$implicit: user.date}"></ng-container>
-    </td>
-    <td>
-      <ng-container *ngTemplateOutlet="userAvatarTemplate; context: {$implicit: user.avatar}"></ng-container>
-    </td>
-  </tr>
-</table>
--->
-<!--
-<ng-container *ngFor="let user of usersAsync | async">
-  <ng-container *ngTemplateOutlet="userIdTemplate; context: {$implicit: user.userID}"></ng-container>
-  <ng-container *ngTemplateOutlet="userNameTemplate; context: {$implicit: user.lastName}"></ng-container>
-  <ng-container *ngTemplateOutlet="userAgeTemplate; context: {$implicit: user.age}"></ng-container>
-</ng-container>
--->

@@ -1,6 +1,6 @@
 import {Component, ContentChild, OnInit, TemplateRef, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import {TableSetting} from '../../services/table-configs/setting-table';
+import { TableSetting } from '../../services/table-configs/setting-table';
 
 
 @Component({
@@ -18,5 +18,9 @@ export class ShowTableComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  filter(columnName: string) {
+    return true;
   }
 }
