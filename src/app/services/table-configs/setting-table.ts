@@ -3,3 +3,8 @@ export interface TableSetting {
   title: string;
   filter: string;
 }
+
+export interface FiltredValues {
+  name: string;
+  value: string;
+}

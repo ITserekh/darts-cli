@@ -1,6 +1,7 @@
-import {Component, ContentChild, OnInit, TemplateRef, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { TableSetting } from '../../services/table-configs/setting-table';
+import {Component, OnInit, Input } from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {FiltredValues, TableSetting} from '../../services/table-configs/setting-table';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -10,17 +11,58 @@ import { TableSetting } from '../../services/table-configs/setting-table';
 })
 export class ShowTableComponent implements OnInit {
 
-  @Input() tableSetting: Observable<TableSetting>;
+  @Input() tableSetting: Observable<TableSetting[]>;
 
-  @Input() data: any[];
+  @Input() data: Observable<any[]>;
+
+  filtredValues: FiltredValues[] = [];
+
+  sourceData: any[];
+  currentData: any[];
+
+  subject: Subject<FiltredValues> = new Subject();
 
   constructor() {
   }
 
   ngOnInit() {
+    this.data.subscribe( tableData => {
+      this.currentData = tableData;
+      this.sourceData = tableData;
+    });
+    this.tableSetting.subscribe(settings => {
+      settings.forEach( item => {
+        if (item.filter !== '') {
+          this.filtredValues.push({name: item.name, value: ''});
+        }
+      });
+    });
+
+    this.subject
+      .pipe(debounceTime(500))
+      .subscribe(( filter ) => {
+        this.filter(filter.name, filter.value);
+      });
   }
 
-  filter(columnName: string) {
-    return true;
+  change(columnName: string, term) {
+    this.subject.next({name: columnName, value: term});
+  }
+
+  filter(columnName: string, value) {
+    this.filtredValues.forEach(item => {
+      if (item.name === columnName) {
+        item.value = value;
+      }
+    });
+
+    this.currentData = this.sourceData.filter(row => {
+      return this.filtredValues.every(filter => row[filter.name].indexOf(filter.value) > -1);
+    });
+  }
+
+  trackByFn(index, item) {
+    if (!item) return null;
+    return index;
   }
 }

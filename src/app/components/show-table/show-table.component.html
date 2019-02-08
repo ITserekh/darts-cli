@@ -2,10 +2,15 @@
   <tr>
     <td *ngFor="let itemSetting of tableSetting | async">
       {{ itemSetting.title }}
-      <input *ngIf="itemSetting.filter">
+      <ng-container *ngIf="itemSetting.filter === 'dateFilter'">
+        <input type="date" #filterInput (input)="change(itemSetting.name, filterInput.value)">
+      </ng-container>
+      <ng-container *ngIf="itemSetting.filter === 'stringFilter'">
+        <input type="text" #filterInput (input)="change(itemSetting.name, filterInput.value)">
+      </ng-container>
     </td>
   </tr>
-  <ng-container *ngFor="let row of data | async">
+  <ng-container *ngFor="let row of currentData; trackBy: trackByFn">
     <ng-container *ngTemplateOutlet="templateRow; context: {row: row, tableSetting: tableSetting}"></ng-container>
       <ng-template #templateRow let-row="row" let-tableSetting="tableSetting">
         <tr>
