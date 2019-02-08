@@ -4,6 +4,11 @@
       {{ columnTableName.title }}
     </td>
   </tr>
+  <tr *ngFor="let item of data | async">
+    <td *ngFor="let column of tableSetting | async">
+      {{ item[column.name] }}
+    </td>
+  </tr>
 
 
 </table>
