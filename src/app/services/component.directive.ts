@@ -16,3 +16,8 @@ export class FilterDirective {
 
   constructor(public viewContainerRef: ViewContainerRef) { }
 }
+
+@Directive({
+  selector: '[tableRow]'
+})
+export class TableRowDirective {}

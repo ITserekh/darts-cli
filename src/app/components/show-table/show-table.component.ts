@@ -1,7 +1,8 @@
-import {Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, TemplateRef, ContentChild } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {FiltredValues, TableSetting} from '../../services/table-configs/setting-table';
 import { debounceTime } from 'rxjs/operators';
+import { TableRowDirective } from '../../services/component.directive';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./show-table.component.scss']
 })
 export class ShowTableComponent implements OnInit {
+
+  @ContentChild(TableRowDirective, {read: TemplateRef}) tableRowTemplate;
 
   @Input() tableSetting: Observable<TableSetting[]>;
 

@@ -16,6 +16,7 @@ import { ComponentDirective } from '../../services/component.directive';
 import { FilterDirective } from '../../services/component.directive';
 import { UserAgeDirective, UserAvatarDirective, UserDateDirective,
 UserIdDirective, UserNameDirective} from '../../services/table-users.directive';
+import { TableRowDirective } from '../../services/component.directive';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ UserIdDirective, UserNameDirective} from '../../services/table-users.directive';
       UserNameDirective,
       UserDateDirective,
       UserAvatarDirective,
-      UserAgeDirective
+      UserAgeDirective,
+      TableRowDirective
     ],
   imports: [
     CommonModule,
