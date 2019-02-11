@@ -3,13 +3,15 @@
 <app-show-table
   [tableSetting]="settingTable"
   [data]="usersAsync">
-  <ng-template tableRow let-row>
-    <tr>
-      <td>{{ row.userID }}</td>
-      <td>{{ row.lastName }}</td>
-      <td>{{ row.age }}</td>
-      <td>{{ row.date }}</td>
-      <td><img [src]="row.avatar"></td>
-    </tr>
-  </ng-template>
+  <ng-container columnName="userID">
+    <td *cellDef="let item">{{ item }}</td>
+  </ng-container>
+  <ng-container columnName="data">
+      <td *cellDef="let item">{{ item }}</td>
+  </ng-container>
+  <ng-container columnName="avatar">
+      <td *cellDef="let item">
+        {{ item }}
+      </td>
+  </ng-container>
 </app-show-table>

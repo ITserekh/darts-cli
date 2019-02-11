@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, ViewContainerRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[component-host]'
@@ -21,3 +21,18 @@ export class FilterDirective {
   selector: '[tableRow]'
 })
 export class TableRowDirective {}
+
+@Directive({
+  selector: '[customTable]'
+})
+export class CustomTableDirective {}
+
+@Directive({
+  selector: '[columnName]'
+})
+export class ColumnNameDirective {
+  name: string;
+  @Input() set columnName(nameC: string) {
+    this.name = nameC;
+  }
+}

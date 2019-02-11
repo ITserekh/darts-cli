@@ -1,3 +1,4 @@
+<!--
 <table>
   <tr>
     <td *ngFor="let itemSetting of tableSetting | async">
@@ -12,4 +13,12 @@
     <ng-container *ngTemplateOutlet="tableRowTemplate; context: {$implicit: row}"></ng-container>
   </ng-container>
 </table>
-<ng-container *ngTemplateOutlet="tableTemplate; context: {$implicit: 'default context property when none specified'}"></ng-container>
+-->
+
+<ng-container>
+  <td *cellDef="let item">{{ item }}</td>
+</ng-container>
+
+<ng-container *ngFor="let content of contentChildren">
+  {{ content }}
+</ng-container>

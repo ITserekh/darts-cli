@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, TemplateRef, ContentChild } from '@angular/core';
+import {Component, OnInit, Input, TemplateRef, ContentChild, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {FiltredValues, TableSetting} from '../../services/table-configs/setting-table';
 import { debounceTime } from 'rxjs/operators';
-import { TableRowDirective } from '../../services/component.directive';
+import { TableRowDirective, CustomTableDirective, ColumnNameDirective } from '../../services/component.directive';
 
 
 @Component({
@@ -10,7 +10,9 @@ import { TableRowDirective } from '../../services/component.directive';
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss']
 })
-export class ShowTableComponent implements OnInit {
+export class ShowTableComponent implements OnInit, AfterContentInit {
+
+  @ContentChildren(ColumnNameDirective) contentChildren: QueryList<any>;
 
   @ContentChild(TableRowDirective, {read: TemplateRef}) tableRowTemplate;
 
@@ -28,6 +30,11 @@ export class ShowTableComponent implements OnInit {
   constructor() {
   }
 
+  ngAfterContentInit() {
+    console.log(this.contentChildren);
+    console.log(this.contentChildren);
+  }
+
   ngOnInit() {
     this.data.subscribe( tableData => {
       this.currentData = tableData;
@@ -40,6 +47,8 @@ export class ShowTableComponent implements OnInit {
         }
       });
     });
+
+
 
     this.subject
       .pipe(debounceTime(500))
