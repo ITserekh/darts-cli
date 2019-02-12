@@ -14,14 +14,12 @@ import { UsersFilterComponent } from '../../components/users-filter/users-filter
 
 import { ComponentDirective } from '../../services/component.directive';
 import { FilterDirective } from '../../services/component.directive';
-import { UserAgeDirective, UserAvatarDirective, UserDateDirective,
-UserIdDirective, UserNameDirective} from '../../services/table-users.directive';
-import { TableRowDirective } from '../../services/component.directive';
+import { DirectivesModule } from '../../derectives/directives.module';
+
 
 
 @NgModule({
-  declarations:
-    [
+  declarations: [
       ShowDataPageComponent,
       ShowDataComponent,
       UsersComponent,
@@ -30,18 +28,13 @@ import { TableRowDirective } from '../../services/component.directive';
       FilterDirective,
       NewsFilterComponent,
       UsersFilterComponent,
-      ShowTableComponent,
-      UserIdDirective,
-      UserNameDirective,
-      UserDateDirective,
-      UserAvatarDirective,
-      UserAgeDirective,
-      TableRowDirective
+      ShowTableComponent
     ],
   imports: [
     CommonModule,
     ShowDataRoutingModule,
     SharedModule,
+    DirectivesModule
   ],
   entryComponents:
     [

@@ -1,15 +1,10 @@
-<table>
-  <tr>
-    <td *ngFor="let itemSetting of tableSetting | async">
-      {{ itemSetting.title }}
-      <br>
-      <ng-container *ngIf="itemSetting.filter">
-      <input [type]="itemSetting.filter" #filterInput (input)="change(itemSetting.name, filterInput.value)">
-    </ng-container>
-    </td>
-  </tr>
-  <ng-container *ngFor="let row of currentData; trackBy: trackByFn">
-    <ng-container *ngTemplateOutlet="tableRowTemplate; context: {$implicit: row}"></ng-container>
-  </ng-container>
-</table>
-<ng-container *ngTemplateOutlet="tableTemplate; context: {$implicit: 'default context property when none specified'}"></ng-container>
+<!--<ng-container *ngFor="let column of contentChildren">-->
+  <!--<ng-container *ngTemplateOutlet="column; context: {$implicit: column.name}"></ng-container>-->
+<!--</ng-container>-->
+
+
+
+<ng-template *ngFor="let column of contentChildren"
+             [ngTemplateOutlet]="column"
+             [ngTemplateOutletContext]="{}">
+</ng-template>

@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, TemplateRef, ContentChild } from '@angular/core';
+import {Component, OnInit, Input, TemplateRef, ContentChild, ContentChildren, QueryList, AfterContentInit, AfterViewInit } from '@angular/core'
 import {Observable, Subject} from 'rxjs';
 import {FiltredValues, TableSetting} from '../../services/table-configs/setting-table';
 import { debounceTime } from 'rxjs/operators';
-import { TableRowDirective } from '../../services/component.directive';
+import { TableRowDirective, CustomTableDirective, ColumnNameDirective, CellDeffDirective  } from '../../services/component.directive';
 
 
 @Component({
@@ -10,9 +10,17 @@ import { TableRowDirective } from '../../services/component.directive';
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss']
 })
-export class ShowTableComponent implements OnInit {
+export class ShowTableComponent implements OnInit, AfterContentInit {
+
+  @ContentChildren(ColumnNameDirective) contentChildren: QueryList<ColumnNameDirective>;
 
   @ContentChild(TableRowDirective, {read: TemplateRef}) tableRowTemplate;
+
+  @ContentChild(CellDeffDirective, {read: TemplateRef}) cellDeffTemplate;
+
+
+
+
 
   @Input() tableSetting: Observable<TableSetting[]>;
 
@@ -26,6 +34,14 @@ export class ShowTableComponent implements OnInit {
   subject: Subject<FiltredValues> = new Subject();
 
   constructor() {
+  }
+
+
+  ngAfterContentInit() {
+    this.contentChildren.forEach(item => {
+      console.log(item);
+    });
+    console.log(this.contentChildren);
   }
 
   ngOnInit() {

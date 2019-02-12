@@ -1,15 +1,20 @@
-<app-show-data></app-show-data>
-<hr>
 <app-show-table
   [tableSetting]="settingTable"
   [data]="usersAsync">
-  <ng-template tableRow let-row>
-    <tr>
-      <td>{{ row.userID }}</td>
-      <td>{{ row.lastName }}</td>
-      <td>{{ row.age }}</td>
-      <td>{{ row.date }}</td>
-      <td><img [src]="row.avatar"></td>
-    </tr>
+  <ng-template columnName="date">
+    <p> date </p>
   </ng-template>
+  <ng-template columnName="user">
+    <p> user </p>
+  </ng-template>
+  <!--
+  <ng-template columnName="data">
+    <td *cellDef="let item">{{ item }}</td>
+  </ng-template>
+  <ng-template columnName="avatar">
+    <td *cellDef="let item">
+      {{ item }}
+    </td>
+  </ng-template>
+  -->
 </app-show-table>

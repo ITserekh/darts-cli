@@ -1,0 +1,13 @@
+[
+  {"brand" : "Mercedes", "model": "CLK", "img": "./assets/images/cars/mercedes-clk.jpg"},
+  {"brand" : "BMW", "model": "M3", "img":  "./assets/images/cars/bmw-m3.jpg"},
+  {"brand" : "AUDI", "model": "Q7", "img":  "./assets/images/cars/mercedes-clk.jpg"},
+  {"brand" : "Tesla", "model": "Model S", "img":  "./assets/images/cars/bmw-m3.jpg"},
+  {"brand" : "BMW", "model": "M5", "img":  "./assets/images/cars/mercedes-clk.jpg"},
+  {"brand" : "Mercedes", "model": "GLA", "img":  "./assets/images/cars/bmw-m3.jpg"},
+  {"brand" : "Maseratti", "model": "Ghibly", "img":  "./assets/images/cars/mercedes-clk.jpg"},
+  {"brand" : "Volvo", "model": "S80", "img":  "./assets/images/cars/bmw-m3.jpg"},
+  {"brand" : "Geely", "model": "Atlas", "img":  "./assets/images/cars/mercedes-clk.jpg"},
+  {"brand" : "Volkswagen", "model": "Passat CC", "img":  "./assets/images/cars/bmw-m3.jpg"},
+  {"brand" : "Lada", "model": "Vesta", "img":  "./assets/images/cars/mercedes-clk.jpg"}
+]
