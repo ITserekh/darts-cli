@@ -1,8 +1,17 @@
-import {Component, OnInit, Input, TemplateRef, ContentChild, ContentChildren, QueryList, AfterContentInit, AfterViewInit } from '@angular/core'
+import {
+  Component,
+  OnInit,
+  Input,
+  TemplateRef,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  ViewChild
+} from '@angular/core'
 import {Observable, Subject} from 'rxjs';
 import {FiltredValues, TableSetting} from '../../services/table-configs/setting-table';
 import { debounceTime } from 'rxjs/operators';
-import { TableRowDirective, CustomTableDirective, ColumnNameDirective, CellDeffDirective  } from '../../services/component.directive';
+import { ColumnNameDirective,  } from '../../services/component.directive';
 
 
 @Component({
@@ -12,15 +21,12 @@ import { TableRowDirective, CustomTableDirective, ColumnNameDirective, CellDeffD
 })
 export class ShowTableComponent implements OnInit, AfterContentInit {
 
-  @ContentChildren(ColumnNameDirective) contentChildren: QueryList<ColumnNameDirective>;
-
-  @ContentChild(TableRowDirective, {read: TemplateRef}) tableRowTemplate;
-
-  @ContentChild(CellDeffDirective, {read: TemplateRef}) cellDeffTemplate;
-
-
-
-
+  // Получает список шаблонов(templates) описаных внутри компоненты, не получает передаваемые значения
+  @ContentChildren(ColumnNameDirective, {read: TemplateRef}) contentChildren: QueryList<ColumnNameDirective>;
+  // Для хранения значений передаваемых в шаблоне
+  @ContentChildren(ColumnNameDirective) contentChildrenName: QueryList<ColumnNameDirective>;
+  // Стандартный шаблон
+  @ViewChild('tableCell', {read: TemplateRef}) tableCellTemplate;
 
   @Input() tableSetting: Observable<TableSetting[]>;
 
@@ -33,15 +39,53 @@ export class ShowTableComponent implements OnInit, AfterContentInit {
 
   subject: Subject<FiltredValues> = new Subject();
 
+  // Массив шаблонов
+  templates: TemplateRef<any>[] = [];
+
+  // Список названий колонок, используется для передачи имени колонки в стандартный шаблон
+  columnNames: string[] = [];
+
   constructor() {
   }
 
 
   ngAfterContentInit() {
-    this.contentChildren.forEach(item => {
-      console.log(item);
+    this.tableSetting.subscribe( settings => {
+      // Формируем список используемых шаблонов
+      settings.forEach(settingItem => {
+        const templateIndex = this.isTemplate(settingItem.name);
+        if ( templateIndex > -1 ) {
+          // Добавляем настраеваемый шаблон
+          this.templates.push(this.getTemplateByIndex(templateIndex));
+        } else {
+          // Добавляем стандартный шаблон
+          this.templates.push(this.tableCellTemplate);
+        }
+      });
     });
-    console.log(this.contentChildren);
+  }
+
+  // Получить шаблон из списка шаблонов по индексу
+  getTemplateByIndex(templateIndex): any {
+    return this.contentChildren.find((template, index) => {
+      return templateIndex === index;
+    });
+  }
+
+  // Получить имя колонки по индексу, костыль для передачи имени в стандартный шаблон
+  getColumnName(index): string {
+    return this.columnNames[index];
+  }
+
+  // Получить индекс шаблона передав имя калонки
+  isTemplate(columnName: string) {
+    let indexTemplatate = -1;
+    this.contentChildrenName.forEach((template, index) => {
+      if (template.name === columnName) {
+        indexTemplatate = index;
+      }
+    });
+    return indexTemplatate;
   }
 
   ngOnInit() {
@@ -51,6 +95,7 @@ export class ShowTableComponent implements OnInit, AfterContentInit {
     });
     this.tableSetting.subscribe(settings => {
       settings.forEach( item => {
+        this.columnNames.push(item.name);
         if (item.filter !== '') {
           this.filtredValues.push({name: item.name, value: ''});
         }

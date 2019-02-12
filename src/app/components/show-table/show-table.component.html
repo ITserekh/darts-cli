@@ -1,10 +1,21 @@
-<!--<ng-container *ngFor="let column of contentChildren">-->
-  <!--<ng-container *ngTemplateOutlet="column; context: {$implicit: column.name}"></ng-container>-->
-<!--</ng-container>-->
+<table>
+  <thead>
 
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of data | async">
+      <tr>
+        <ng-container *ngFor="let template of templates; let i = index">
+          <app-table-cell [innerTemplate]="template" [context]="item" [columnName]="getColumnName(i)"></app-table-cell>
+        </ng-container>
 
+      </tr>
+  </ng-container>
+  </tbody>
+</table>
 
-<ng-template *ngFor="let column of contentChildren"
-             [ngTemplateOutlet]="column"
-             [ngTemplateOutletContext]="{}">
+<ng-template #tableCell let-item let-name="name">
+  {{ item[name] }}
 </ng-template>
+
+

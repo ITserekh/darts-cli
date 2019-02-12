@@ -34,18 +34,8 @@ export class CustomTableDirective {}
 export class ColumnNameDirective {
   name: string;
 
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef) { }
-
   @Input() set columnName(columnName: string) {
-    if (columnName) {
-      console.log('---------- name ---------- ', columnName);
-      this.name = columnName;
-      this.viewContainer.createEmbeddedView(this.templateRef, {});
-    } else {
-      this.viewContainer.clear();
-    }
+    this.name = columnName;
   }
 }
 

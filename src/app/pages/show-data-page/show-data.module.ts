@@ -15,6 +15,7 @@ import { UsersFilterComponent } from '../../components/users-filter/users-filter
 import { ComponentDirective } from '../../services/component.directive';
 import { FilterDirective } from '../../services/component.directive';
 import { DirectivesModule } from '../../derectives/directives.module';
+import {TableCellComponent} from '../../components/table-cell/table-cell.component';
 
 
 
@@ -28,7 +29,8 @@ import { DirectivesModule } from '../../derectives/directives.module';
       FilterDirective,
       NewsFilterComponent,
       UsersFilterComponent,
-      ShowTableComponent
+      ShowTableComponent,
+      TableCellComponent
     ],
   imports: [
     CommonModule,
