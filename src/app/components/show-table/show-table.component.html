@@ -1,21 +1,44 @@
 <table>
   <thead>
-
+    <tr>
+      <ng-container *ngFor="let setting of tableSetting | async;">
+        <th>
+          {{ setting.title }}
+          <ng-container *ngIf="isColumnFilter(setting.name) && controlForms.contains(setting.name); else defaultFormControl">
+            <app-table-cell [innerTemplate]="getColumnFilter(setting.name)" [controlForm]="controlForms.controls[setting.name]"></app-table-cell>
+          </ng-container>
+          <ng-template #defaultFormControl>
+            <ng-container *ngIf="controlForms.contains(setting.name)">
+              <app-table-cell [innerTemplate]="defaultFormControlTemplate" [controlForm]="controlForms.controls[setting.name]"></app-table-cell>
+            </ng-container>
+          </ng-template>
+        </th>
+      </ng-container>
+    </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let item of data | async">
+    <ng-container *ngFor="let item of currentData; trackBy: trackByFn">
       <tr>
-        <ng-container *ngFor="let template of templates; let i = index">
-          <app-table-cell [innerTemplate]="template" [context]="item" [columnName]="getColumnName(i)"></app-table-cell>
+        <ng-container *ngFor="let template of bodyTemplates; let i = index">
+          <td>
+            <app-table-cell [innerTemplate]="template" [context]="item" [columnName]="getColumnName(i)"></app-table-cell>
+          </td>
         </ng-container>
-
       </tr>
   </ng-container>
   </tbody>
 </table>
 
+<button (click)="disable() && (en = !en)">Disable</button>
+<button (click)="enable()">Enable</button>
+
 <ng-template #tableCell let-item let-name="name">
   {{ item[name] }}
+</ng-template>
+
+<ng-template #defaultFormControlTemplate let-controlForm="controlForm">
+  <br>
+  <input type="text" [formControl]="controlForm">
 </ng-template>
 
 

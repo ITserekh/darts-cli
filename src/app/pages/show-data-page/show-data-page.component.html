@@ -2,15 +2,25 @@
   [tableSetting]="settingTable"
   [data]="usersAsync">
 
-  <ng-template columnName="date" let-item>
+  <ng-template columnName="date" cellType="body" let-item>
     {{ item.date }}
   </ng-template>
-  <ng-template columnName="avatar" let-item>
+  <ng-template columnName="avatar" cellType="body" let-item>
     <img [src]="item.avatar">
   </ng-template>
 
-  <ng-template columnName="age" let-item>
-   --- {{ item.age }}
+  <ng-template columnName="age" cellType="body" let-item>
+    {{ item.age }}
+  </ng-template>
+
+  <ng-template columnName="date" cellType="filter" let-controlForm="controlForm">
+    <br>
+      <input type="date" [formControl]="controlForm">
+  </ng-template>
+
+  <ng-template columnName="age" cellType="filter" let-controlForm="controlForm">
+    <br>
+    <input type="number" [formControl]="controlForm">
   </ng-template>
 
 </app-show-table>

@@ -6,12 +6,14 @@ import {
   ContentChildren,
   QueryList,
   AfterContentInit,
-  ViewChild
+  ViewChild,
+  ChangeDetectorRef,
+  AfterViewChecked
 } from '@angular/core'
-import {Observable, Subject} from 'rxjs';
-import {FiltredValues, TableSetting} from '../../services/table-configs/setting-table';
-import { debounceTime } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { FiltredValues, TableSetting } from '../../services/table-configs/setting-table';
 import { ColumnNameDirective,  } from '../../services/component.directive';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -19,7 +21,7 @@ import { ColumnNameDirective,  } from '../../services/component.directive';
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss']
 })
-export class ShowTableComponent implements OnInit, AfterContentInit {
+export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewChecked {
 
   // Получает список шаблонов(templates) описаных внутри компоненты, не получает передаваемые значения
   @ContentChildren(ColumnNameDirective, {read: TemplateRef}) contentChildren: QueryList<ColumnNameDirective>;
@@ -37,32 +39,46 @@ export class ShowTableComponent implements OnInit, AfterContentInit {
   sourceData: any[];
   currentData: any[];
 
-  subject: Subject<FiltredValues> = new Subject();
+  controlForms: FormGroup;
 
-  // Массив шаблонов
-  templates: TemplateRef<any>[] = [];
+  // Массив шаблонов для body
+  bodyTemplates: TemplateRef<any>[] = [];
 
   // Список названий колонок, используется для передачи имени колонки в стандартный шаблон
   columnNames: string[] = [];
 
-  constructor() {
+  constructor(private fb: FormBuilder,
+              public cd: ChangeDetectorRef) {
   }
 
-
-  ngAfterContentInit() {
+  ngOnInit() {
+    this.data.subscribe( tableData => {
+      this.currentData = tableData;
+      this.sourceData = tableData;
+    });
     this.tableSetting.subscribe( settings => {
       // Формируем список используемых шаблонов
       settings.forEach(settingItem => {
-        const templateIndex = this.isTemplate(settingItem.name);
+        const templateIndex = this.isTemplate(settingItem.name, 'body');
         if ( templateIndex > -1 ) {
           // Добавляем настраеваемый шаблон
-          this.templates.push(this.getTemplateByIndex(templateIndex));
+          this.bodyTemplates.push(this.getTemplateByIndex(templateIndex));
         } else {
           // Добавляем стандартный шаблон
-          this.templates.push(this.tableCellTemplate);
+          this.bodyTemplates.push(this.tableCellTemplate);
         }
+        // инициализация массима содержащего список названия колонок
+        this.columnNames.push(settingItem.name);
       });
+      this.initFormsCotrol();
     });
+  }
+
+  ngAfterViewChecked(): void {
+  }
+
+  ngAfterContentInit() {
+
   }
 
   // Получить шаблон из списка шаблонов по индексу
@@ -77,40 +93,56 @@ export class ShowTableComponent implements OnInit, AfterContentInit {
     return this.columnNames[index];
   }
 
+  // Есть ли шаблон с форм контролем для данной колонки
+  isColumnFilter(columnName): boolean {
+    return this.isTemplate(columnName, 'filter') > -1;
+  }
+
+  // получить шаблон с форм контроль
+  getColumnFilter(columnName) {
+    const filterTemplateIndex = this.isTemplate(columnName, 'filter');
+    return this.getTemplateByIndex(filterTemplateIndex);
+  }
+
   // Получить индекс шаблона передав имя калонки
-  isTemplate(columnName: string) {
+  isTemplate(columnName: string, cellType): number {
     let indexTemplatate = -1;
     this.contentChildrenName.forEach((template, index) => {
-      if (template.name === columnName) {
+      if (template.name === columnName && template.cellType === cellType) {
         indexTemplatate = index;
       }
     });
     return indexTemplatate;
   }
 
-  ngOnInit() {
-    this.data.subscribe( tableData => {
-      this.currentData = tableData;
-      this.sourceData = tableData;
-    });
+  // Инициализация контроля форм для фильтрации таблицы
+  initFormsCotrol() {
+    this.controlForms = this.fb.group({});
     this.tableSetting.subscribe(settings => {
-      settings.forEach( item => {
-        this.columnNames.push(item.name);
-        if (item.filter !== '') {
-          this.filtredValues.push({name: item.name, value: ''});
+      settings.forEach(settingItem => {
+        if (settingItem.filter === 'true') {
+          this.controlForms.addControl(settingItem.name, new FormControl(''));
         }
       });
+    })
+    this.controlForms.valueChanges.subscribe(item => {
+      this.newFilter(item);
     });
-
-    this.subject
-      .pipe(debounceTime(500))
-      .subscribe(( filter ) => {
-        this.filter(filter.name, filter.value);
-      });
   }
 
-  change(columnName: string, term) {
-    this.subject.next({name: columnName, value: term});
+
+
+  newFilter(newValues) {
+    this.currentData = this.sourceData.filter(row => {
+      for (const key in newValues) {
+        if (row[key].indexOf(newValues[key]) > -1 || newValues[key] === null) {
+          // есть совпадения
+        } else {
+          return false;
+        }
+      }
+      return true;
+    });
   }
 
   filter(columnName: string, value) {
@@ -128,5 +160,13 @@ export class ShowTableComponent implements OnInit, AfterContentInit {
   trackByFn(index, item) {
     if (!item) return null;
     return index;
+  }
+
+  disable() {
+    this.cd.detach();
+  }
+
+  enable() {
+    this.cd.reattach();
   }
 }

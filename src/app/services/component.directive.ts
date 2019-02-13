@@ -1,4 +1,5 @@
 import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Directive({
   selector: '[component-host]'
@@ -37,6 +38,8 @@ export class ColumnNameDirective {
   @Input() set columnName(columnName: string) {
     this.name = columnName;
   }
+
+  @Input() cellType: string;
 }
 
 @Directive({

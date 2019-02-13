@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 
 @Component({
@@ -11,6 +12,7 @@ export class TableCellComponent implements OnInit {
   @Input() innerTemplate: TemplateRef<any>;
   @Input() context: any;
   @Input() columnName: string;
+  @Input() controlForm: FormControl;
 
   constructor() { }
 

@@ -17,6 +17,8 @@ import { FilterDirective } from '../../services/component.directive';
 import { DirectivesModule } from '../../derectives/directives.module';
 import {TableCellComponent} from '../../components/table-cell/table-cell.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import {TableCellComponent} from '../../components/table-cell/table-cell.compone
     CommonModule,
     ShowDataRoutingModule,
     SharedModule,
-    DirectivesModule
+    DirectivesModule,
+    ReactiveFormsModule
   ],
   entryComponents:
     [
