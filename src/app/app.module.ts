@@ -21,6 +21,7 @@ import { ShowPointsComponent } from './components/show-points/show-points.compon
 import { ShowWinnerComponent } from './components/show-winner/show-winner.component';
 
 import { ComponentService } from './services/component.service';
+import { AuthenticationService } from './services/authentication.service';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ComponentService } from './services/component.service';
     GetDataService,
     ComponentService,
     FilterNewsService,
-    FilterUsersService
+    FilterUsersService,
+    AuthenticationService
   ],
   entryComponents: [
     ShowPointsComponent,

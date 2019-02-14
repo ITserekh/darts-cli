@@ -15,9 +15,12 @@ import { UsersFilterComponent } from '../../components/users-filter/users-filter
 import { ComponentDirective } from '../../services/component.directive';
 import { FilterDirective } from '../../services/component.directive';
 import { DirectivesModule } from '../../derectives/directives.module';
-import {TableCellComponent} from '../../components/table-cell/table-cell.component';
+import { TableCellComponent } from '../../components/table-cell/table-cell.component';
+import { TableBodyComponent } from '../../components/table-body/table-body.component';
+
 
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -32,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       NewsFilterComponent,
       UsersFilterComponent,
       ShowTableComponent,
-      TableCellComponent
+      TableCellComponent,
+      TableBodyComponent
     ],
   imports: [
     CommonModule,
