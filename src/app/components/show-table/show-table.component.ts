@@ -19,7 +19,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-show-table',
   templateUrl: './show-table.component.html',
-  styleUrls: ['./show-table.component.scss']
+  styleUrls: ['./show-table.component.scss'],
 })
 export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewChecked {
 
@@ -33,6 +33,8 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
   @Input() tableSetting: Observable<TableSetting[]>;
 
   @Input() data: Observable<any[]>;
+
+  testInput: string ; // для тестоа удалить
 
   filtredValues: FiltredValues[] = [];
 
@@ -74,11 +76,12 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
     });
   }
 
-  ngAfterViewChecked(): void {
+  ngAfterViewChecked() {
+    console.log('show-table: ngAfterViewChecked');
   }
 
   ngAfterContentInit() {
-
+    console.log('show-table: ngAfterContentInit');
   }
 
   // Получить шаблон из списка шаблонов по индексу
@@ -162,11 +165,8 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
     return index;
   }
 
-  disable() {
-    this.cd.detach();
-  }
-
-  enable() {
-    this.cd.reattach();
+  refresh() {
+    this.cd.detectChanges();
+    // this.cd.detach();
   }
 }

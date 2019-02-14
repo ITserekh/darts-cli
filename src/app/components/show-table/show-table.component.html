@@ -1,3 +1,8 @@
+<!--
+<button (click)="refresh()">Refresh</button>
+-->
+<input type="text" [(ngModel)]="testInput">
+<p>{{ testInput }}</p>
 <table>
   <thead>
     <tr>
@@ -16,7 +21,8 @@
       </ng-container>
     </tr>
   </thead>
-  <tbody>
+  <app-table-body [currentData]="currentData" [templates]="bodyTemplates" [columnNames]="columnNames"></app-table-body>
+  <!--
     <ng-container *ngFor="let item of currentData; trackBy: trackByFn">
       <tr>
         <ng-container *ngFor="let template of bodyTemplates; let i = index">
@@ -26,11 +32,9 @@
         </ng-container>
       </tr>
   </ng-container>
-  </tbody>
+  -->
 </table>
 
-<button (click)="disable() && (en = !en)">Disable</button>
-<button (click)="enable()">Enable</button>
 
 <ng-template #tableCell let-item let-name="name">
   {{ item[name] }}
