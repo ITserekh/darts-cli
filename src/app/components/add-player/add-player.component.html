@@ -12,5 +12,13 @@
   </div>
   <div class="form-group">
     <button [disabled]="name.invalid || email.invalid" class="btn btn-default" (click)="add()">Add</button>
+    <!--
+    <ng-container *ngIf="this.playersService.getPlayers().length; else addFirstUser">
+      <button [disabled]="name.invalid || email.invalid" class="btn btn-default" (click)="add()">Add</button>
+    </ng-container>
+      <button (click)="saveUser()">Save first player</button>
+      <button routerLink="/setting" routerLinkActive="active">Go to setting</button>
+    <ng-template #addFirstUser ></ng-template>
+    -->
   </div>
 </div>

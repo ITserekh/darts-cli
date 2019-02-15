@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material';
 
 import { PlayersService } from '../../services/players.service';
 import {Router} from '@angular/router';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'add-player',
@@ -14,6 +15,7 @@ export class AddPlayerComponent {
   playerName: string;
   eMail: string;
   avatar: object;
+  isSaveUser = false;
 
   constructor(private playersService: PlayersService,
               private router: Router,
@@ -24,6 +26,11 @@ export class AddPlayerComponent {
     // this.dialogRef.close();
     this.playersService.addPlayer(this.playerName, this.eMail, this.avatar);
     this.router.navigate(['/setting']);
+  }
+
+  saveUser() {
+    this.playersService.addPlayer(this.playerName, this.eMail, this.avatar);
+    this.isSaveUser = true;
   }
 
   onFileChanged(event) {
@@ -38,4 +45,7 @@ export class AddPlayerComponent {
       };
     }
   }
+  /*
+  добавить canDiactivate ля разрешения перехода
+   */
 }
