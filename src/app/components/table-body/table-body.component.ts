@@ -12,7 +12,7 @@ export class TableBodyComponent implements OnInit, AfterViewChecked, AfterConten
   @Input() currentData: any[];
   @Input() columnNames: string[];
 
-  check: number = 0;
+  check = 0;
 
   constructor() { }
 
@@ -25,14 +25,11 @@ export class TableBodyComponent implements OnInit, AfterViewChecked, AfterConten
 
   ngDoCheck() {
     this.check = this.check + 1;
-    console.log('show-body: ngDoCheck');
   }
 
   ngAfterViewChecked() {
-    console.log('show-body: ngAfterViewChecked: - ' , this.check);
   }
 
   ngAfterContentInit() {
-    console.log('show-body: ngAfterContentInit');
   }
 }

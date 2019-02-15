@@ -77,11 +77,9 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
   }
 
   ngAfterViewChecked() {
-    console.log('show-table: ngAfterViewChecked');
   }
 
   ngAfterContentInit() {
-    console.log('show-table: ngAfterContentInit');
   }
 
   // Получить шаблон из списка шаблонов по индексу
