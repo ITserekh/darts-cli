@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserData} from './interfaces/users-date';
+import { UserData } from './interfaces/users-date';
 
 const users: UserData[] = [
   {userName: 'admin', password: 'admin', role: 'admin'},
@@ -16,7 +16,6 @@ export class AuthenticationService {
   constructor() { }
 
   login(name: string, pass: string): boolean {
-    console.log('name: ', name, ' ', 'pass', pass);
     users.forEach(user => {
       if (user.userName === name && user.password === pass) {
         this.currentUser = user;
@@ -31,8 +30,6 @@ export class AuthenticationService {
   }
 
   get currentUserValue(): string {
-    console.log('localStorage: ', localStorage.getItem('currentUser'));
-    console.log(localStorage.getItem('currentUser'));
     return localStorage.getItem('currentUser');
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/guards/auth.guard';
+import { CanDeactivateGuard } from './services/guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -20,8 +21,8 @@ const routes: Routes = [
   {
     path: 'show',
     loadChildren: './pages/show-data-page/show-data.module#ShowDataModule',
-    canActivate: [AuthGuard],
-    data: { expectedRole: 'admin'}
+    canLoad: [AuthGuard],
+    // data: { expectedRole: 'admin'}
   },
   {
     path: 'login',
@@ -29,9 +30,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'item',
+    loadChildren: './pages/add-item/add-item.module#AddItemModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'hello',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'hello'
   }
 ];
 

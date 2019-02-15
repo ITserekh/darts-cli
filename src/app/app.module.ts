@@ -22,6 +22,7 @@ import { ShowWinnerComponent } from './components/show-winner/show-winner.compon
 
 import { ComponentService } from './services/component.service';
 import { AuthenticationService } from './services/authentication.service';
+import { httpInterceptorProviders } from './services/interceptors/interseptors';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AuthenticationService } from './services/authentication.service';
     ComponentService,
     FilterNewsService,
     FilterUsersService,
-    AuthenticationService
+    AuthenticationService,
+    httpInterceptorProviders
   ],
   entryComponents: [
     ShowPointsComponent,
