@@ -10,7 +10,9 @@ import { BankDataService } from '../../services/bank/bank-data.service';
 })
 export class BankTableComponent implements OnInit {
 
-  currentPage: number = 1;
+  currentPage: number;
+  lastPage: number;
+  itemsPerPage: number = 5;
 
   serchValue: string;
 
@@ -18,7 +20,7 @@ export class BankTableComponent implements OnInit {
 
   tableSetting: Observable<TableSetting[]> = of([
     { name: 'clientId', title: 'ID', filter: 'false' },
-    { name: 'clientName', title: 'Name', filter: 'false' },
+    { name: 'clientName', title: 'Name', filter: 'true' },
     { name: 'createDate', title: 'Create Date', filter: 'false' },
     { name: 'documentNumber', title: 'Document Number', filter: 'false' },
     { name: 'statusName', title: 'Status Name', filter: 'false'}
@@ -31,10 +33,16 @@ export class BankTableComponent implements OnInit {
 
 
   getDocumentsGrid() {
-    this.bankDataService.getDocumentsGrid(this.serchValue, this.currentPage).subscribe(data => {
+    this.bankDataService.getDocumentsGrid(this.serchValue, this.currentPage, this.itemsPerPage).subscribe(data => {
       console.log(data);
+      this.lastPage = Math.floor(data.items / this.itemsPerPage);
       this.documentsGrid = data.dataTable;
     });
+  }
+
+  search() {
+    this.currentPage = 1;
+    this.getDocumentsGrid();
   }
 
   nextPage() {
@@ -49,4 +57,8 @@ export class BankTableComponent implements OnInit {
     }
   }
 
+  goToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.getDocumentsGrid();
+  }
 }

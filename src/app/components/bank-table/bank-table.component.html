@@ -1,16 +1,24 @@
 <input type="text" [(ngModel)]="serchValue">
-<button (click)="getDocumentsGrid()">Search</button>
+<button (click)="search()">Search</button>
 
 <app-show-table
   [tableSetting]="tableSetting"
   [data]="documentsGrid">
+
   <ng-template columnName="createDate" cellType="body" let-item>
-    {{ item.createDate | date:'medium' }}
+   {{ item.createDate | date:'medium' }}
   </ng-template>
+
+  <ng-template columnName="clientId" cellType="body" let-item>
+    {{ item.clientId }}
+  </ng-template>
+
 </app-show-table>
 
 <app-paging
   [page]="currentPage"
+  [lastPage]="lastPage"
   (goPrev)="previousPage()"
-  (goNext)="nextPage()">
+  (goNext)="nextPage()"
+  (goPage)="goToPage($event)">
 </app-paging>

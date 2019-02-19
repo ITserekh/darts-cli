@@ -46,14 +46,14 @@ export class BankDataService {
     }
   }
 
-  getDocumentsGrid(serchValue: string, pageNumber: number) {
+  getDocumentsGrid(serchValue: string, pageNumber: number, itemsPerPage: number) {
     let session_token = localStorage.getItem('session_token');
     const httpOptions = {
       headers: new HttpHeaders({session_token})
     }
     const question = {"sort":{"columnName":"typeDoc","columnValue":"asc"},"sortList":[{"columnName":"typeDoc",
         "columnValue":"asc"}],"filterLike":[{"columnName":"allInOne","columnValue":serchValue}],
-      "filterIntervalList":[],"filterDateIntervalList":[],"numberOfPage":pageNumber,"itemsPerPage":"5",
+      "filterIntervalList":[],"filterDateIntervalList":[],"numberOfPage":pageNumber,"itemsPerPage":itemsPerPage,
       "dateFrom":"2019-02-18","dateTo":"2019-02-18"}
     return this.http.post<any>(GET_DOCUMENT_GRID_URL, question, httpOptions);
   }

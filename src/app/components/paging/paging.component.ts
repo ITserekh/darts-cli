@@ -8,9 +8,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class PagingComponent implements OnInit {
 
   @Input() page: number;
+  @Input() lastPage: number;
 
   @Output() goPrev = new EventEmitter<boolean>();
   @Output() goNext = new EventEmitter<boolean>();
+  @Output() goPage = new EventEmitter<number>();
 
   currentPageNumber: number = 0;
 
@@ -25,5 +27,9 @@ export class PagingComponent implements OnInit {
 
   nextPage() {
     this.goNext.emit();
+  }
+
+  onPage(numberPage: number) {
+    this.goPage.emit(numberPage);
   }
 }

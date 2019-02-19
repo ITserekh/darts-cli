@@ -7,8 +7,8 @@ import {
   QueryList,
   ViewChild,
   ChangeDetectorRef,
-  DoCheck,
-  OnChanges
+  OnChanges,
+  AfterViewInit
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FiltredValues, TableSetting } from '../../services/table-configs/setting-table';
@@ -21,7 +21,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss'],
 })
-export class ShowTableComponent implements OnInit, OnChanges {
+export class ShowTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   // Получает список шаблонов(templates) описаных внутри компоненты, не получает передаваемые значения
   @ContentChildren(ColumnNameDirective, {read: TemplateRef}) contentChildren: QueryList<ColumnNameDirective>;
@@ -35,7 +35,7 @@ export class ShowTableComponent implements OnInit, OnChanges {
   // @Input() data: Observable<any[]>;
   @Input() data: any[];
 
-  testInput: string ; // для тестоа удалить
+  // testInput: string ; // для тестоа удалить
 
   filtredValues: FiltredValues[] = [];
 
@@ -76,6 +76,12 @@ export class ShowTableComponent implements OnInit, OnChanges {
       });
       this.initFormsCotrol();
     });
+  }
+
+  ngAfterViewInit(): void {
+    console.log(this.contentChildren);
+    console.log(this.contentChildrenName);
+    console.log(this.bodyTemplates);
   }
 
   // Получить шаблон из списка шаблонов по индексу

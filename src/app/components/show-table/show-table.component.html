@@ -16,8 +16,10 @@
       </ng-container>
     </tr>
   </thead>
-  <app-table-body [currentData]="currentData" [templates]="bodyTemplates" [columnNames]="columnNames"></app-table-body>
   <!--
+  <app-table-body [currentData]="currentData" [templates]="bodyTemplates" [columnNames]="columnNames"></app-table-body>
+  -->
+
     <ng-container *ngFor="let item of currentData; trackBy: trackByFn">
       <tr>
         <ng-container *ngFor="let template of bodyTemplates; let i = index">
@@ -27,7 +29,6 @@
         </ng-container>
       </tr>
   </ng-container>
-  -->
 </table>
 
 

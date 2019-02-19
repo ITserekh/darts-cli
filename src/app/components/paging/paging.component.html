@@ -1,5 +1,11 @@
 <div>
-  <button (click)="previuosPage()"><</button>
-  <span>{{ page }}</span>
-  <button (click)="nextPage()">></button>
+  <button [disabled]="page === 1 || !page" (click)="onPage(1)">First</button>
+  <button [disabled]="page === 1 || !page" (click)="previuosPage()">Previous</button>
+  <ng-container *ngFor="let plusPages of [1,2,3]">
+    <ng-container *ngIf="lastPage >= (page + plusPages - 1)">
+      <button [disabled]="page === (page + plusPages - 1)" (click)="onPage(page + plusPages - 1)">{{ page + plusPages - 1 }}</button>
+    </ng-container>
+  </ng-container>
+  <button [disabled]="lastPage === page || !lastPage" (click)="nextPage()">Next</button>
+  <button [disabled]="lastPage === page || !lastPage" (click)="onPage(lastPage)">Last</button>
 </div>
