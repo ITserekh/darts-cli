@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/guards/auth.guard';
-import { CanDeactivateGuard } from './services/guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +20,7 @@ const routes: Routes = [
   {
     path: 'show',
     loadChildren: './pages/show-data-page/show-data.module#ShowDataModule',
+    canActivate: [AuthGuard],
     canLoad: [AuthGuard],
     // data: { expectedRole: 'admin'}
   },

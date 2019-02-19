@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NewsFilterComponent } from './news-filter.component';
+// import { NewsFilterComponent } from './news-filter.component';
 import { FilterNewsService } from '../../services/filter-news.servise';
 
 @NgModule({
-  declarations: [NewsFilterComponent],
+  declarations: [/*NewsFilterComponent*/],
   imports: [
     CommonModule,
     FormsModule
@@ -14,7 +14,7 @@ import { FilterNewsService } from '../../services/filter-news.servise';
     FilterNewsService
   ],
   exports: [
-    NewsFilterComponent
+    // NewsFilterComponent
   ]
 })
 export class NewsFilterModule { }

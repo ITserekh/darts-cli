@@ -1,6 +1,7 @@
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material';
 
 import { GameRoutingModule } from './game-routing.module';
 import { GamePageComponent } from './game-page.component';
@@ -21,7 +22,8 @@ import { SharedModule } from '../../shared.module';
     CommonModule,
     GameRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatDialogModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

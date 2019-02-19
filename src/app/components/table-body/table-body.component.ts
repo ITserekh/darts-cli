@@ -6,15 +6,17 @@ import {Component, Input, OnInit, TemplateRef, ChangeDetectionStrategy, AfterVie
   styleUrls: ['./table-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableBodyComponent implements OnInit, AfterViewChecked, AfterContentInit, DoCheck {
+export class TableBodyComponent implements OnInit, DoCheck {
 
   @Input() templates: TemplateRef<any>[];
   @Input() currentData: any[];
   @Input() columnNames: string[];
 
-  check = 0;
 
   constructor() { }
+
+  ngDoCheck(): void {
+  }
 
   ngOnInit() {
   }
@@ -23,13 +25,4 @@ export class TableBodyComponent implements OnInit, AfterViewChecked, AfterConten
     return this.columnNames[index];
   }
 
-  ngDoCheck() {
-    this.check = this.check + 1;
-  }
-
-  ngAfterViewChecked() {
-  }
-
-  ngAfterContentInit() {
-  }
 }

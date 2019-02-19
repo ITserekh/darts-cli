@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { TableSetting } from '../../services/table-configs/setting-table';
 import { Users2 } from '../../services/users';
-import {Observable, Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {GetDataService} from '../../services/get-data.service';
 import {USER2_URL, USER_TABLE_SETTINGS, CARS_DATA_URL} from '../../services/urls';
-import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-show-data-page',
@@ -13,36 +12,36 @@ import {debounceTime} from 'rxjs/operators';
 })
 export class ShowDataPageComponent implements OnInit {
 
+  currentPage: number = 1;
+
   settingTable: Observable<TableSetting>;
 
-  usersAsync: Observable<Users2[]>
+  // usersAsync: Observable<Users2[]>;
+  users: Users2[];
 
-  subject: Subject<any> = new Subject();
-
-  cars: Observable<any>;
-
-  constructor(private getDataService: GetDataService) { }
+  constructor(private getDataService: GetDataService,
+              public cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.usersAsync = this.getDataService.getJSON(USER2_URL);
+    this.getDataService.getPage(this.currentPage).subscribe( res => {
+      this.users = res;
+    });
     this.settingTable = this.getDataService.getJSON(USER_TABLE_SETTINGS);
-    this.cars = this.getDataService.getJSON(CARS_DATA_URL);
+  }
 
-    this.subject
-      .pipe(debounceTime(500))
-      .subscribe(( filter ) => {
-        this.formControl(filter.name, filter.value);
+  previuosPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getDataService.getPage(this.currentPage).subscribe(res => {
+        this.users = res;
       });
-
+    }
   }
 
-  formControl(columnName, value) {
-    console.log(columnName, ': ', value);
+  nextPage() {
+    this.currentPage++;
+    this.getDataService.getPage(this.currentPage).subscribe( res => {
+      this.users = res;
+    });
   }
-
-  filter(columnName: string, term) {
-    this.subject.next({name: columnName, value: term});
-  }
-
-
 }

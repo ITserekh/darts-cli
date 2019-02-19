@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 const LOGIN_URL = 'https://192.168.253.168:7702/ibservices/session/login';
 const LOGIN_LOGOUT = 'https://192.168.253.168:7702/ibservices/session/login';
 const GET_USER_URL = 'https://192.168.253.168:7702/ibservices/user/getUserById';
+const GET_DOCUMENT_GRID_URL = 'https://192.168.253.168:8543/ibservices/document/getDocumentsGrid';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,27 @@ export class BankDataService {
   }
 
   getUserById() {
+      let session_token = localStorage.getItem('session_token');
 
+      if (session_token.length > 0) {
+
+      const httpOptions = {
+        headers: new HttpHeaders({session_token})
+      }
+
+      return this.http.post<any>(GET_USER_URL, {}, httpOptions);
+    }
+  }
+
+  getDocumentsGrid(serchValue: string, pageNumber: number) {
     let session_token = localStorage.getItem('session_token');
-
     const httpOptions = {
       headers: new HttpHeaders({session_token})
     }
-
-    return this.http.post<any>(GET_USER_URL, {}, httpOptions);
+    const question = {"sort":{"columnName":"typeDoc","columnValue":"asc"},"sortList":[{"columnName":"typeDoc",
+        "columnValue":"asc"}],"filterLike":[{"columnName":"allInOne","columnValue":serchValue}],
+      "filterIntervalList":[],"filterDateIntervalList":[],"numberOfPage":pageNumber,"itemsPerPage":"5",
+      "dateFrom":"2019-02-18","dateTo":"2019-02-18"}
+    return this.http.post<any>(GET_DOCUMENT_GRID_URL, question, httpOptions);
   }
 }

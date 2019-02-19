@@ -37,15 +37,5 @@ export class ErrorsInterceptorService implements HttpInterceptor {
       return event;
     }
       );
-    /*
-    return next.handle(request).pipe(catchError(err => {
-
-      this.router.navigate(['/login']);
-      const error = err.error.message || err.statusText;
-      console.log('------Http Error');
-      console.log(error);
-      return throwError(error);
-    }));
-    */
   }
 }

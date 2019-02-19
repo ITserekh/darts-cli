@@ -5,11 +5,11 @@ import {
   TemplateRef,
   ContentChildren,
   QueryList,
-  AfterContentInit,
   ViewChild,
   ChangeDetectorRef,
-  AfterViewChecked
-} from '@angular/core'
+  DoCheck,
+  OnChanges
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { FiltredValues, TableSetting } from '../../services/table-configs/setting-table';
 import { ColumnNameDirective,  } from '../../services/component.directive';
@@ -21,7 +21,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss'],
 })
-export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewChecked {
+export class ShowTableComponent implements OnInit, OnChanges {
 
   // Получает список шаблонов(templates) описаных внутри компоненты, не получает передаваемые значения
   @ContentChildren(ColumnNameDirective, {read: TemplateRef}) contentChildren: QueryList<ColumnNameDirective>;
@@ -32,14 +32,15 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
 
   @Input() tableSetting: Observable<TableSetting[]>;
 
-  @Input() data: Observable<any[]>;
+  // @Input() data: Observable<any[]>;
+  @Input() data: any[];
 
   testInput: string ; // для тестоа удалить
 
   filtredValues: FiltredValues[] = [];
 
-  sourceData: any[];
-  currentData: any[];
+  sourceData: any[] = [];
+  currentData: any[] = [];
 
   controlForms: FormGroup;
 
@@ -53,11 +54,12 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
               public cd: ChangeDetectorRef) {
   }
 
+  ngOnChanges() {
+    this.sourceData = this.data;
+    this.currentData = this.data;
+  }
+
   ngOnInit() {
-    this.data.subscribe( tableData => {
-      this.currentData = tableData;
-      this.sourceData = tableData;
-    });
     this.tableSetting.subscribe( settings => {
       // Формируем список используемых шаблонов
       settings.forEach(settingItem => {
@@ -74,12 +76,6 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
       });
       this.initFormsCotrol();
     });
-  }
-
-  ngAfterViewChecked() {
-  }
-
-  ngAfterContentInit() {
   }
 
   // Получить шаблон из списка шаблонов по индексу
@@ -108,11 +104,13 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
   // Получить индекс шаблона передав имя калонки
   isTemplate(columnName: string, cellType): number {
     let indexTemplatate = -1;
-    this.contentChildrenName.forEach((template, index) => {
-      if (template.name === columnName && template.cellType === cellType) {
-        indexTemplatate = index;
-      }
-    });
+    if (this.contentChildrenName) {
+      this.contentChildrenName.forEach((template, index) => {
+        if (template.name === columnName && template.cellType === cellType) {
+          indexTemplatate = index;
+        }
+      });
+    }
     return indexTemplatate;
   }
 
@@ -161,10 +159,5 @@ export class ShowTableComponent implements OnInit, AfterContentInit, AfterViewCh
   trackByFn(index, item) {
     if (!item) return null;
     return index;
-  }
-
-  refresh() {
-    this.cd.detectChanges();
-    // this.cd.detach();
   }
 }

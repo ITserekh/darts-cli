@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { BankDataService } from '../../services/bank/bank-data.service';
 
 @Component({
@@ -25,10 +24,8 @@ export class AddItemComponent implements OnInit {
   connect() {
     const login = 'maa-bta2';
     const password = '1';
-
     // const login = this.form.controls.login.value;
     // const password = this.form.controls.password.value;
-
     this.bankDataService.login(login, password);
   }
 
@@ -41,5 +38,4 @@ export class AddItemComponent implements OnInit {
       console.log(user);
     });
   }
-
 }

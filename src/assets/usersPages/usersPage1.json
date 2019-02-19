@@ -1,0 +1,5 @@
+[
+  { "userID": "01", "firstName": "Vasya", "lastName": "Pupkin", "age": "25", "date": "2019-02-05", "avatar": "./assets/images/avatars/avatar_profile_user_music_headphones_shirt_cool-512.png" },
+  { "userID": "03", "firstName": "Dmytry", "lastName": "Popov", "age": "24", "date": "2019-01-05", "avatar": "./assets/images/avatars/depositphotos_115690172-stock-illustration-businessman-profile-colorful-avatar-over.jpg" },
+  { "userID": "04", "firstName": "Vladimir", "lastName": "Putin", "age": "17", "date": "2019-02-05", "avatar": "./assets/images/avatars/man-156584__340.png" }
+]

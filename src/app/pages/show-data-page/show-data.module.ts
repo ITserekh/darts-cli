@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared.module';
 
@@ -10,7 +10,7 @@ import { ShowTableComponent } from '../../components/show-table/show-table.compo
 import { UsersComponent } from '../../components/users/users.component';
 import { NewsComponent } from '../../components/news/news.component';
 import { NewsFilterComponent } from '../../components/news-filter/news-filter.component';
-import { UsersFilterComponent } from '../../components/users-filter/users-filter.component';
+// import { UsersFilterComponent } from '../../components/users-filter/users-filter.component';
 
 import { ComponentDirective } from '../../services/component.directive';
 import { FilterDirective } from '../../services/component.directive';
@@ -20,6 +20,7 @@ import { TableBodyComponent } from '../../components/table-body/table-body.compo
 
 
 import { ReactiveFormsModule } from '@angular/forms';
+import {PagingComponent} from '../../components/paging/paging.component';
 
 
 
@@ -33,11 +34,12 @@ import { ReactiveFormsModule } from '@angular/forms';
       ComponentDirective,
       FilterDirective,
       NewsFilterComponent,
-      UsersFilterComponent,
+      // UsersFilterComponent,
       ShowTableComponent,
       TableCellComponent,
-      TableBodyComponent
-    ],
+      TableBodyComponent,
+    PagingComponent
+  ],
   imports: [
     CommonModule,
     ShowDataRoutingModule,
@@ -47,10 +49,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   entryComponents:
     [
-      UsersComponent,
-      NewsComponent,
-      NewsFilterComponent,
-      UsersFilterComponent
-    ]
+      // UsersComponent,
+      // NewsComponent,
+      // NewsFilterComponent,
+      // UsersFilterComponent
+    ],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class ShowDataModule { }

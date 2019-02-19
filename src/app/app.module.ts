@@ -23,6 +23,7 @@ import { ShowWinnerComponent } from './components/show-winner/show-winner.compon
 import { ComponentService } from './services/component.service';
 import { AuthenticationService } from './services/authentication.service';
 import { httpInterceptorProviders } from './services/interceptors/interseptors';
+import { BankDataService } from './services/bank/bank-data.service';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { httpInterceptorProviders } from './services/interceptors/interseptors';
     ComponentService,
     FilterNewsService,
     FilterUsersService,
+    BankDataService,
     AuthenticationService,
     httpInterceptorProviders
   ],
