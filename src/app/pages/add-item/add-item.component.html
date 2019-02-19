@@ -1,9 +1,15 @@
 <form [formGroup]="form">
+  <div>
   <label>Login
     <input formControlName="login">
   </label>
+  </div>
+  <div>
   <label>Password
     <input formControlName="password">
   </label>
+  </div>
   <button (click)="connect()">Login</button>
+  <button (click)="getUser()">Get User</button>
+  <button (click)="logout()">Logout</button>
 </form>
