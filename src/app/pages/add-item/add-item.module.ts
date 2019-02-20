@@ -9,6 +9,7 @@ import { AddItemComponent } from './add-item.component';
 
 import { BankTableComponent } from '../../components/bank-table/bank-table.component';
 import { CustomTableModule } from '../../custom-table.module';
+import { AddDocumentModule } from '../../components/add-document/add-document.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CustomTableModule } from '../../custom-table.module';
     AddItemRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    CustomTableModule
+    CustomTableModule,
+    AddDocumentModule
   ]
 })
 export class AddItemModule { }
