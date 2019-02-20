@@ -8,12 +8,11 @@ import {
   ViewChild,
   ChangeDetectorRef,
   OnChanges,
-  AfterViewInit,
-  AfterContentInit
+  AfterContentInit, Output, EventEmitter
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { FiltredValues, TableSetting } from '../../services/table-configs/setting-table';
+import { TableSetting, CurrentSoringValues, SortingDirection } from '../../services/table-configs/setting-table';
 import { ColumnNameDirective,  } from '../../services/component.directive';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -34,12 +33,11 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
 
   @Input() tableSetting: Observable<TableSetting[]>;
 
-  // @Input() data: Observable<any[]>;
   @Input() data: any[];
 
-  // testInput: string ; // для тестоа удалить
+  @Input() sortinDirection: SortingDirection;
 
-  filtredValues: FiltredValues[] = [];
+  @Output() sorting = new EventEmitter<CurrentSoringValues>(); // первый элемент имя колонки, второй - тип сортировки
 
   sourceData: any[] = [];
   currentData: any[] = [];
@@ -51,6 +49,8 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
 
   // Список названий колонок, используется для передачи имени колонки в стандартный шаблон
   columnNames: string[] = [];
+
+  currentSortValues: CurrentSoringValues;
 
   constructor(private fb: FormBuilder,
               public cd: ChangeDetectorRef) {
@@ -68,6 +68,11 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
         this.columnNames.push(settingItem.name);
       });
       this.initFormsCotrol();
+      // инициализация начальной сортировки
+      this.currentSortValues =  {
+        name: settings[0].name,
+        value: 'asc'
+      };
     });
   }
 
@@ -133,12 +138,14 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
         }
       });
     })
+
+    // Подписка на ввод фильтруемых значений с задержкой с задержкой 500мс
     this.controlForms.valueChanges.pipe(debounceTime(500)).subscribe(item => {
-      this.newFilter(item);
+      this.filter(item);
     });
   }
 
-  newFilter(newValues) {
+  filter(newValues) {
     this.currentData = this.sourceData.filter(row => {
       for (const key in newValues) {
         if (row[key].indexOf(newValues[key]) > -1 || newValues[key] === null) {
@@ -151,20 +158,23 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
     });
   }
 
-  filter(columnName: string, value) {
-    this.filtredValues.forEach(item => {
-      if (item.name === columnName) {
-        item.value = value;
-      }
-    });
-
-    this.currentData = this.sourceData.filter(row => {
-      return this.filtredValues.every(filter => row[filter.name].indexOf(filter.value) > -1);
-    });
-  }
-
   trackByFn(index, item) {
     if (!item) return null;
     return index;
+  }
+
+  // Сортировка колонки с именем columnName
+  goSorting(columnName: string) {
+    if (this.currentSortValues.name.indexOf(columnName) > -1) { // сортировка той же колонки в обратном порядке
+      if (this.currentSortValues.value.indexOf(this.sortinDirection.up) > -1) { // переключаем сортировке
+        this.currentSortValues.value = this.sortinDirection.down;
+      } else {
+        this.currentSortValues.value = this.sortinDirection.up;
+      }
+    } else { // сортировка по умолчанию up
+      this.currentSortValues.name = columnName;
+      this.currentSortValues.value = this.sortinDirection.up;
+    }
+    this.sorting.emit(this.currentSortValues);
   }
 }

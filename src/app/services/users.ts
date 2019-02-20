@@ -11,3 +11,11 @@ export interface Users2 {
   date: string;
   avatar: string;
 }
+
+export interface DocumentsGridInterface {
+  clientId: number;
+  clientName: string;
+  createDate: string;
+  documentNumber: string;
+  statusName: string;
+}

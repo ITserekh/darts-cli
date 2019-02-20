@@ -3,7 +3,15 @@
     <tr>
       <ng-container *ngFor="let setting of tableSetting | async;">
         <th>
-          {{ setting.title }}
+            <button (click)="goSorting(setting.name)">
+              {{ setting.title }}
+              <ng-container *ngIf="sorting.observers.length > 0 && sortinDirection">
+                <ng-container *ngIf="currentSortValues.name.indexOf(setting.name) > -1">
+                  <ng-container *ngIf="currentSortValues.value.indexOf(sortinDirection.up) > -1"><sup>Up</sup></ng-container>
+                  <ng-container *ngIf="currentSortValues.value.indexOf(sortinDirection.down) > -1"><sub>Down</sub></ng-container>
+                </ng-container>
+              </ng-container>
+            </button>
           <ng-container *ngIf="isColumnFilter(setting.name) && controlForms.contains(setting.name); else defaultFormControl">
             <app-table-cell [innerTemplate]="getColumnFilter(setting.name)" [controlForm]="controlForms.controls[setting.name]"></app-table-cell>
           </ng-container>
