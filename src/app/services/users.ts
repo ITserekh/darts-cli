@@ -19,3 +19,8 @@ export interface DocumentsGridInterface {
   documentNumber: string;
   statusName: string;
 }
+
+export interface FiltredValues {
+  columnName: string;
+  columnValue: string;
+}

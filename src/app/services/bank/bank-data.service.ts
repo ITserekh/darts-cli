@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {FiltredValues} from '../users';
 
 const LOGIN_URL = 'https://192.168.253.168:7702/ibservices/session/login';
 const LOGIN_LOGOUT = 'https://192.168.253.168:7702/ibservices/session/login';
@@ -46,15 +47,11 @@ export class BankDataService {
     }
   }
 
-  getDocumentsGrid(serchValue: string, pageNumber: number, itemsPerPage: number, sortColumName: string, sortColumnValue: string) {
+  getDocumentsGrid(question) {
     let session_token = localStorage.getItem('session_token');
     const httpOptions = {
       headers: new HttpHeaders({session_token})
-    }
-    const question = {"sort":{"columnName":sortColumName,"columnValue":sortColumnValue},"sortList":[{"columnName":sortColumName,
-        "columnValue":sortColumnValue}],"filterLike":[{"columnName":"allInOne","columnValue":serchValue}],
-      "filterIntervalList":[],"filterDateIntervalList":[],"numberOfPage":pageNumber,"itemsPerPage":itemsPerPage,
-      "dateFrom":"2019-02-18","dateTo":"2019-02-18"}
+    };
     return this.http.post<any>(GET_DOCUMENT_GRID_URL, question, httpOptions);
   }
 }

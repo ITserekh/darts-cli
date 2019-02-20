@@ -1,4 +1,7 @@
-<input type="text" [(ngModel)]="serchValue">
+<input type="text" [(ngModel)]="filtredValues[0].columnValue">
+C <input type="date" [(ngModel)]="question.dateFrom">
+По <input type="date" [(ngModel)]="question.dateTo">
+
 <button (click)="search()">Search</button>
 <br>
 <hr>
@@ -8,7 +11,9 @@
   [tableSetting]="tableSetting"
   [data]="documentsGrid"
   [sortinDirection]="sortingDirection"
-  (sorting)="setSorting($event)">
+  (sorting)="setSorting($event)"
+  (filter)="filter($event)"
+>
 
   <ng-template columnName="createDate" cellType="body" let-item>
    {{ item.createDate | date:'medium' }}
@@ -18,15 +23,10 @@
     {{ item.clientId }}
   </ng-template>
 
-  <ng-template columnName="createDate" cellType="filter" let-controlForm="controlForm">
-    <br>
-    <input type="date" [formControl]="controlForm">
-  </ng-template>
-
 </app-show-table>
 
 <app-paging
-  [page]="currentPage"
+  [page]="question.numberOfPage"
   [lastPage]="lastPage"
   (goPrev)="previousPage()"
   (goNext)="nextPage()"

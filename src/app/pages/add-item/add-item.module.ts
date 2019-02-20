@@ -7,20 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { AddItemRoutingModule } from './add-item-routing.module';
 import { AddItemComponent } from './add-item.component';
 
-// import { ShowTableComponent } from '../../components/show-table/show-table.component';
-// import { TableCellComponent } from '../../components/table-cell/table-cell.component';
-// import { TableBodyComponent } from '../../components/table-body/table-body.component';
-// import { PagingComponent } from '../../components/paging/paging.component';
 import { BankTableComponent } from '../../components/bank-table/bank-table.component';
-import {CustomTableModule} from '../../custom-table.module';
+import { CustomTableModule } from '../../custom-table.module';
 
 @NgModule({
   declarations: [
     AddItemComponent,
-    // ShowTableComponent,
-    // TableCellComponent,
-    // TableBodyComponent,
-    // PagingComponent,
     BankTableComponent
   ],
   imports: [

@@ -8,7 +8,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
   OnChanges,
-  AfterContentInit, Output, EventEmitter
+  AfterContentInit, Output, EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -21,6 +21,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   selector: 'app-show-table',
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
 
@@ -38,6 +39,7 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
   @Input() sortinDirection: SortingDirection;
 
   @Output() sorting = new EventEmitter<CurrentSoringValues>(); // первый элемент имя колонки, второй - тип сортировки
+  @Output() filter = new EventEmitter<any>(); // Получаем функциюДля фильтрации
 
   sourceData: any[] = [];
   currentData: any[] = [];
@@ -141,10 +143,11 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
 
     // Подписка на ввод фильтруемых значений с задержкой с задержкой 500мс
     this.controlForms.valueChanges.pipe(debounceTime(500)).subscribe(item => {
-      this.filter(item);
+      this.filter.emit(item);
     });
   }
 
+  /*
   filter(newValues) {
     this.currentData = this.sourceData.filter(row => {
       for (const key in newValues) {
@@ -157,6 +160,7 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
       return true;
     });
   }
+  */
 
   trackByFn(index, item) {
     if (!item) return null;
