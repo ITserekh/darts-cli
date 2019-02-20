@@ -13,6 +13,11 @@
     {{ item.clientId }}
   </ng-template>
 
+  <ng-template columnName="createDate" cellType="filter" let-controlForm="controlForm">
+    <br>
+    <input type="date" [formControl]="controlForm">
+  </ng-template>
+
 </app-show-table>
 
 <app-paging

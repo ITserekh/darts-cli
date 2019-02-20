@@ -8,9 +8,11 @@ import {
   ViewChild,
   ChangeDetectorRef,
   OnChanges,
-  AfterViewInit
+  AfterViewInit,
+  AfterContentInit
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { FiltredValues, TableSetting } from '../../services/table-configs/setting-table';
 import { ColumnNameDirective,  } from '../../services/component.directive';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -21,7 +23,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   templateUrl: './show-table.component.html',
   styleUrls: ['./show-table.component.scss'],
 })
-export class ShowTableComponent implements OnInit, OnChanges, AfterViewInit {
+export class ShowTableComponent implements OnInit, OnChanges, AfterContentInit {
 
   // Получает список шаблонов(templates) описаных внутри компоненты, не получает передаваемые значения
   @ContentChildren(ColumnNameDirective, {read: TemplateRef}) contentChildren: QueryList<ColumnNameDirective>;
@@ -61,6 +63,16 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
     this.tableSetting.subscribe( settings => {
+      // Формируем названия колонок и форм контролов для фильтрациии колонок
+      settings.forEach(settingItem => {
+        this.columnNames.push(settingItem.name);
+      });
+      this.initFormsCotrol();
+    });
+  }
+
+  ngAfterContentInit(): void {
+    this.tableSetting.subscribe( settings => {
       // Формируем список используемых шаблонов
       settings.forEach(settingItem => {
         const templateIndex = this.isTemplate(settingItem.name, 'body');
@@ -71,17 +83,8 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterViewInit {
           // Добавляем стандартный шаблон
           this.bodyTemplates.push(this.tableCellTemplate);
         }
-        // инициализация массима содержащего список названия колонок
-        this.columnNames.push(settingItem.name);
       });
-      this.initFormsCotrol();
     });
-  }
-
-  ngAfterViewInit(): void {
-    console.log(this.contentChildren);
-    console.log(this.contentChildrenName);
-    console.log(this.bodyTemplates);
   }
 
   // Получить шаблон из списка шаблонов по индексу
@@ -108,7 +111,7 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   // Получить индекс шаблона передав имя калонки
-  isTemplate(columnName: string, cellType): number {
+  isTemplate(columnName: string, cellType: string): number {
     let indexTemplatate = -1;
     if (this.contentChildrenName) {
       this.contentChildrenName.forEach((template, index) => {
@@ -130,12 +133,10 @@ export class ShowTableComponent implements OnInit, OnChanges, AfterViewInit {
         }
       });
     })
-    this.controlForms.valueChanges.subscribe(item => {
+    this.controlForms.valueChanges.pipe(debounceTime(500)).subscribe(item => {
       this.newFilter(item);
     });
   }
-
-
 
   newFilter(newValues) {
     this.currentData = this.sourceData.filter(row => {

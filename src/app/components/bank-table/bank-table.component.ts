@@ -21,7 +21,7 @@ export class BankTableComponent implements OnInit {
   tableSetting: Observable<TableSetting[]> = of([
     { name: 'clientId', title: 'ID', filter: 'false' },
     { name: 'clientName', title: 'Name', filter: 'true' },
-    { name: 'createDate', title: 'Create Date', filter: 'false' },
+    { name: 'createDate', title: 'Create Date', filter: 'true' },
     { name: 'documentNumber', title: 'Document Number', filter: 'false' },
     { name: 'statusName', title: 'Status Name', filter: 'false'}
   ]);
