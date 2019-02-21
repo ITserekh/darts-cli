@@ -5,7 +5,7 @@ import { TableCellComponent } from './components/table-cell/table-cell.component
 import { TableBodyComponent } from './components/table-body/table-body.component';
 import { PagingComponent } from './components/paging/paging.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DirectivesModule } from './derectives/directives.module';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [

@@ -10,6 +10,7 @@ import { AddItemComponent } from './add-item.component';
 import { BankTableComponent } from '../../components/bank-table/bank-table.component';
 import { CustomTableModule } from '../../custom-table.module';
 import { AddDocumentModule } from '../../components/add-document/add-document.module';
+import { MaskDirectivesModule } from '../../directives/mask-directives/mask-directives.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AddDocumentModule } from '../../components/add-document/add-document.mo
     ReactiveFormsModule,
     FormsModule,
     CustomTableModule,
-    AddDocumentModule
+    AddDocumentModule,
+    MaskDirectivesModule
   ]
 })
 export class AddItemModule { }

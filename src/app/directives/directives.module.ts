@@ -7,7 +7,7 @@ import { TableRowDirective, CustomTableDirective, ColumnNameDirective, CellDeffD
     TableRowDirective,
     CustomTableDirective,
     ColumnNameDirective,
-    CellDeffDirective
+    CellDeffDirective,
   ],
   exports: [
     TableRowDirective,

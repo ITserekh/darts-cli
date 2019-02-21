@@ -14,7 +14,7 @@ import { NewsFilterComponent } from '../../components/news-filter/news-filter.co
 
 import { ComponentDirective } from '../../services/component.directive';
 import { FilterDirective } from '../../services/component.directive';
-import { DirectivesModule } from '../../derectives/directives.module';
+import { DirectivesModule } from '../../directives/directives.module';
 // import { TableCellComponent } from '../../components/table-cell/table-cell.component';
 // import { TableBodyComponent } from '../../components/table-body/table-body.component';
 
