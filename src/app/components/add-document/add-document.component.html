@@ -8,7 +8,8 @@
   </label>
   <br>
   <label>
-    Дата создания: <input type="date" formControlName="createDate">
+    Дата создания: <input formControlName="createDate"  [owlDateTime]="dt" [owlDateTimeTrigger]="dt">
+    <owl-date-time #dt></owl-date-time>
   </label>
   <br>
   <label>

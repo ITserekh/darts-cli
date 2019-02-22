@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-add-document',
@@ -27,7 +28,10 @@ export class AddDocumentComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              dateTimeAdapter: DateTimeAdapter<any>) {
+    dateTimeAdapter.setLocale('ru-RU');
+  }
 
   ngOnInit() {
     this.initForm();
@@ -44,7 +48,7 @@ export class AddDocumentComponent implements OnInit {
       cost: ['0,00', [
         Validators.required
       ]],
-      createDate: [new Date().toISOString().substring(0, 10), [
+      createDate: [new Date(), [
         Validators.required
       ]],
       unp: [, [
