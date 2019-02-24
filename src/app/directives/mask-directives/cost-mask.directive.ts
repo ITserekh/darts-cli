@@ -102,14 +102,18 @@ export class CostMaskDirective {
       newVal = newVal.replace(/^(\d{0,3})(\d{0,3})(\d{0,3})(\d{3})(\d{2})/, '$1 $2 $3 $4,$5');
     }
 
+    console.log('delete length: ', this.previousLength - newVal.length);
+    console.log('deleteKey', deleteKey);
     // изменить курсор при добавлении/удалении пробела
     if (this.previousLength - newVal.length === -2) {
+      console.log('firstCondition');
       this.resultCursorPosition = cursorPosition + 1;
     } else if (this.previousLength - newVal.length === 2 && !deleteKey) {
+      console.log('secondCondition');
       this.resultCursorPosition = cursorPosition - 2;
     } else if (this.previousLength - newVal.length === 2 && deleteKey) {
-      console.log(deleteKey);
-      this.resultCursorPosition = cursorPosition;
+      console.log('delete position');
+      this.resultCursorPosition = cursorPosition - 1;
     }
 
 
@@ -188,6 +192,7 @@ export class CostMaskDirective {
         this.resultCursorPosition = cursorPosition;
       }
     }
+
 
     return str;
   }
