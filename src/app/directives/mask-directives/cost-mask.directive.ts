@@ -11,9 +11,8 @@ export class CostMaskDirective {
   resultCursorPosition: number;
   previousString = '0,00';
 
+  // для текущего ngModelChange, проверить было ли предыдущим действие удаления
   previousIsDelition = false;
-
-  doDelition = false;
 
   @HostListener('ngModelChange', ['$event'])
   onModelChange(event) {
@@ -38,10 +37,11 @@ export class CostMaskDirective {
   }
 
   onInputChange(event, backspaceKey, deleteKey) {
-    console.log(event);
     const cursorPosition = this.el.nativeElement.selectionStart; // получить позицию курсора в строке
     const condition = event.replace(/\D/g, '');
     let str = event;
+
+    console.log(cursorPosition);
 
     // Если происходит нажатие клавиши backspase или delete
     if (backspaceKey || deleteKey) {
@@ -50,8 +50,8 @@ export class CostMaskDirective {
       } else if (deleteKey && cursorPosition !== str.length) {
         str = this.deleteWithDeleteKey(cursorPosition, str);
       }
-      this.previousString = str;
       this.previousIsDelition = true;
+      this.previousString = str;
       // Если не удаление и вызов ngChangeModel происходит не после удаления
     } else if (!this.previousIsDelition) {
       // this.previousValue.indexOf(condition) === -1 --> проверка вводилась ли буква
@@ -82,40 +82,45 @@ export class CostMaskDirective {
     // когда удаляется выделением нескольких символов и остается меньше трех цифр
     if (str.length < 4) {
       str = '0,00';
+      this.previousIsDelition = false;
+      this.resultCursorPosition = 1;
+    }
+
+    // если нажимать BACKSPACE при установки курсора на позиции ноль, курсор смещается в конец
+    if (cursorPosition === 0 && backspaceKey) {
+      this.previousIsDelition = false;
     }
 
     // Разбиение на строки
-    let newVal = str.replace(/\D/g, '');
-    this.previousValue = newVal; // Для сравнения при следующем изменения, для не нужных символов
-    if (newVal.length === 3) {
-      newVal = newVal.replace(/^(\d{0,3})(\d{2})/, '$1,$2');
-    } else if (newVal.length <= 5 ) {
-      newVal = newVal.replace(/^(\d{0,3})(\d{2})/, '$1,$2');
-    } else if (newVal.length <= 8 ) {
-      newVal = newVal.replace(/^(\d{0,3})(\d{3})(\d{2})/, '$1 $2,$3');
-    } else if (newVal.length <= 11 ) {
-      newVal = newVal.replace(/^(\d{0,3})(\d{3})(\d{3})(\d{2})/, '$1 $2 $3,$4');
-    } else if (newVal.length <= 13 ) {
-      newVal = newVal.replace(/^(\d{0,3})(\d{3})(\d{3})(\d{3})(\d{2})/, '$1 $2 $3 $4,$5');
-    } else {
-      newVal = newVal.substring(0, 13);
-      newVal = newVal.replace(/^(\d{0,3})(\d{0,3})(\d{0,3})(\d{3})(\d{2})/, '$1 $2 $3 $4,$5');
-    }
+    this.previousValue = str.replace(/\D/g, ''); // Для сравнения при следующем изменения, для лишних символов
+    const num = str.replace(/\D/g, '') / 100;
 
-    console.log('delete length: ', this.previousLength - newVal.length);
-    console.log('deleteKey', deleteKey);
+    const newVal = num.toLocaleString('ru-RU', {minimumFractionDigits: 2});
+
     // изменить курсор при добавлении/удалении пробела
     if (this.previousLength - newVal.length === -2) {
-      console.log('firstCondition');
       this.resultCursorPosition = cursorPosition + 1;
+      // использование  клавиши BACKSPACE с удалением пробела в строке
     } else if (this.previousLength - newVal.length === 2 && !deleteKey) {
-      console.log('secondCondition');
-      this.resultCursorPosition = cursorPosition - 2;
+      // Курсор в начале, что бы не перебрасывало его в конец
+      if (cursorPosition === 1) {
+        this.resultCursorPosition = 0;
+        // Курсор в середине
+      } else {
+        this.resultCursorPosition = cursorPosition - 2;
+      }
+      // использование клавиши DELETE с удалением пробела
     } else if (this.previousLength - newVal.length === 2 && deleteKey) {
-      console.log('delete position');
-      this.resultCursorPosition = cursorPosition - 1;
+      // если курсор в начале, там его и оставить (без этого перекидывает в конец)
+      if (cursorPosition === 0) {
+        this.resultCursorPosition = cursorPosition;
+        // курсор в середине
+      } else {
+        this.resultCursorPosition = cursorPosition - 1;
+      }
+    } else if (this.previousLength - newVal.length === 1 && deleteKey && newVal.charCodeAt(cursorPosition - 1) === 160) {
+      this.resultCursorPosition = cursorPosition + 1;
     }
-
 
     this.previousString = newVal;
 
@@ -138,9 +143,11 @@ export class CostMaskDirective {
         str = str.slice(0, cursorPosition - 1) + '0' + str.slice(cursorPosition);
         this.resultCursorPosition = cursorPosition - 1;
       }
-
+      // курсор стоит справа от запятой, удаляется первый символ слева от запятой
+    } else if (cursorPosition === str.length - 2) {
+      str = str.slice(0, cursorPosition - 2) + str.slice(str.length - 3);
+      this.resultCursorPosition = cursorPosition - 2;
     } else if (str.length === 3) {
-
       if (str.indexOf(',') > -1) {
         str = '0' + str.slice(0);
         this.resultCursorPosition = cursorPosition;
@@ -152,21 +159,15 @@ export class CostMaskDirective {
     } else {
       if (str.charAt(cursorPosition - 1) === ' ') {
         str = str.slice(0, cursorPosition - 2) + str.slice(cursorPosition);
-        // this.resultCursorPosition = cursorPosition - 1;
       } else {
         str = str.slice(0, cursorPosition - 1) + str.slice(cursorPosition);
-        // this.resultCursorPosition = cursorPosition - 1;
       }
-
       this.resultCursorPosition = cursorPosition - 1;
     }
     return str;
   }
 
   deleteWithDeleteKey(cursorPosition: number, str: string): string {
-    console.log('deleteWithDeleteKey');
-    console.log('cursor:', cursorPosition);
-    console.log('str: ', str);
     if (cursorPosition >= str.length - 2) { // удаление справа от запятой
       if (cursorPosition === str.length - 1) {
         str = str.slice(0, cursorPosition) + '0';
@@ -175,29 +176,32 @@ export class CostMaskDirective {
         str = str.slice(0, cursorPosition) + '0' + str.slice(cursorPosition + 1);
         this.resultCursorPosition = cursorPosition + 1;
       }
-    } else if (str.length === 3) {
+    } else if (cursorPosition === str.length - 3) {
+      str = str.slice(0, cursorPosition + 1) + '0' + str.slice(str.length - 1);
+      this.resultCursorPosition = str.length - 1;
+    } else if (str.length === 3) { // удаление попадает на запятую
       if (str.indexOf(',') > -1) {
         str = '0' + str.slice(0);
         this.resultCursorPosition = cursorPosition;
       } else {
         str = str.slice(0, 1) + ',' +  str.slice(1);
         this.resultCursorPosition = cursorPosition;
-      }// удаление попадает на запятую
+      }
     } else { // удаленние слева от запятой
-      if (str.charAt(cursorPosition) === ' ') {
+      // если первый удаляемый знак стоит пробел
+      if (str.charCodeAt(cursorPosition) === 160) {
         str = str.slice(0, cursorPosition) + str.slice(cursorPosition + 2);
-        this.resultCursorPosition = cursorPosition;
+        this.resultCursorPosition = cursorPosition  - 1;
       } else {
         str = str.slice(0, cursorPosition) + str.slice(cursorPosition + 1);
         this.resultCursorPosition = cursorPosition;
       }
     }
-
-
     return str;
   }
 
   changesBeforeComma(cursorPosition: number, str: string): string {
+    // удаляет добавленный в переди 0
     if (str.length === 5 && cursorPosition === 2 && +str[0] === 0) {
       str = str.slice(1);
       this.resultCursorPosition = cursorPosition - 1;
