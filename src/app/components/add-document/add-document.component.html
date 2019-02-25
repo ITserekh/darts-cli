@@ -2,6 +2,9 @@
   <label>
     Номер: <input type="text" formControlName="number">
   </label>
+  <div class="validation-error" >
+    <p invalidMessage="number" errorType="required">Please enter the number</p>
+  </div>
   <br>
   <label>
     Сумма:<input type="text" formControlName="cost" appCostMask>
@@ -11,18 +14,23 @@
     Дата создания: <input formControlName="createDate"  [owlDateTime]="dt" [owlDateTimeTrigger]="dt">
     <owl-date-time #dt></owl-date-time>
   </label>
+  <div class="validation-error" >
+    <p invalidMessage="createDate" errorType="required">Please enter the date</p>
+  </div>
   <br>
   <label>
     УНП: <input type="text" formControlName="unp">
   </label>
+  <div class="validation-error" >
+    <p invalidMessage="unp" errorType="maxlength">Length exceeded</p>
+    <p invalidMessage="unp" errorType="required">Please enter UNP</p>
+  </div>
   <br>
   <label>
     Страна: <select formControlName="country">
-    <ng-container *ngFor="let country of countryList; let i = index">
-      <option [value]="country.code">
-        {{ country.code }} - {{ country.name }}
-      </option>
-    </ng-container>
+    <option *ngFor="let country of countryList; let i = index" [value]="country.code">
+      {{ country.code }} - {{ country.name }}
+    </option>
   </select>
   </label>
   <br>

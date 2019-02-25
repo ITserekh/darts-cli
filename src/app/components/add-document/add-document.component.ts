@@ -34,10 +34,11 @@ export class AddDocumentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initForm();
+    // this.initCountryList();
     for (const key in this.countyCode) {
       this.countryList.push ({code: key, name: this.countyCode[key].name});
     }
+    this.initForm();
   }
 
   initForm() {
@@ -52,12 +53,15 @@ export class AddDocumentComponent implements OnInit {
         Validators.required
       ]],
       unp: [, [
-        Validators.required
+        Validators.required,
+        Validators.maxLength(this.countyCode[this.countryList[0].code].lengthUnp)
       ]],
-      country: [, [
+      country: [this.countryList[0].code, [
         Validators.required
       ]]
     });
+    this.controlForms.updateValueAndValidity();
+    console.log(this.controlForms.controls.country);
     this.controlForms.controls.country.valueChanges.subscribe(country => this.toogleUnpLength(country));
   }
 
@@ -72,7 +76,12 @@ export class AddDocumentComponent implements OnInit {
     const controls = this.controlForms.controls;
 
     if (this.controlForms.invalid) {
-      Object.keys(controls).forEach(controlName => controls[controlName].markAsTouched());
+      Object.keys(controls).forEach(controlName => {
+        controls[controlName].markAsTouched();
+        if (controls[controlName].invalid) {
+          controls[controlName].updateValueAndValidity();
+        }
+      });
       console.log('Invalid form');
     } else {
       const result = this.controlForms.value;
