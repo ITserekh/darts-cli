@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { InvalidMessageDirective } from './invalid-message.directive';
-// import { InvalidTypeDirective } from './invalid-type.directive';
+import { InvalidMessageDirective } from './invalid-message.directive';
 
 @NgModule({
   declarations: [
-    // InvalidMessageDirective,
-    // InvalidTypeDirective
+    InvalidMessageDirective,
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    // InvalidMessageDirective,
-    // InvalidTypeDirective
+    InvalidMessageDirective,
   ]
 })
 export class InvalidMessageModule { }
