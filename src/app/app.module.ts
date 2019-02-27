@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { PlayersService } from './services/players.service';
 import { ThrowService } from './services/throw.service';
@@ -24,7 +24,14 @@ import { ComponentService } from './services/component.service';
 import { AuthenticationService } from './services/authentication.service';
 import { httpInterceptorProviders } from './services/interceptors/interseptors';
 import { BankDataService } from './services/bank/bank-data.service';
+import { ValidatorsMessagesService } from './services/validators/validators-messages.service';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+// AoT requires an exported function for factories
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   imports: [
@@ -33,6 +40,13 @@ import { BankDataService } from './services/bank/bank-data.service';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     HttpClientModule,
   ],
   declarations: [
@@ -52,6 +66,7 @@ import { BankDataService } from './services/bank/bank-data.service';
     FilterUsersService,
     BankDataService,
     AuthenticationService,
+    ValidatorsMessagesService,
     httpInterceptorProviders
   ],
   entryComponents: [
