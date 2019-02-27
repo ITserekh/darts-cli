@@ -1,0 +1,20 @@
+{
+  "default-validators-massages": {
+    "validators": {
+      "required": "Please, enter value",
+      "maxlength": "Length exceeded",
+      "minlength": "Short value"
+    }
+  },
+  "document-validators-messages": {
+    "validators": {
+      "number": {
+        "required": "Please enter number of document"
+      },
+      "unp": {
+        "required": "Please enter UNP",
+        "maxlength": "Length of UNP is exceeded"
+      }
+    }
+  }
+}
