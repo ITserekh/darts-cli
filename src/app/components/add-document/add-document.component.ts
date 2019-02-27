@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { ValidatorsInterface } from '../../services/interfaces/validators-interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-document',
@@ -8,6 +10,8 @@ import { DateTimeAdapter } from 'ng-pick-datetime';
   styleUrls: ['./add-document.component.scss']
 })
 export class AddDocumentComponent implements OnInit {
+
+  validatorsMessages: ValidatorsInterface;
 
   controlForms: FormGroup;
 
@@ -29,7 +33,8 @@ export class AddDocumentComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              dateTimeAdapter: DateTimeAdapter<any>) {
+              private dateTimeAdapter: DateTimeAdapter<any>,
+              private translate: TranslateService) {
     dateTimeAdapter.setLocale('ru-RU');
   }
 
@@ -39,6 +44,10 @@ export class AddDocumentComponent implements OnInit {
       this.countryList.push ({code: key, name: this.countyCode[key].name});
     }
     this.initForm();
+    this.translate.get('document-validators-messages').subscribe(validators => {
+      console.log(validators);
+      this.validatorsMessages = validators;
+    });
   }
 
   initForm() {
@@ -61,7 +70,6 @@ export class AddDocumentComponent implements OnInit {
       ]]
     });
     this.controlForms.updateValueAndValidity();
-    console.log(this.controlForms.controls.country);
     this.controlForms.controls.country.valueChanges.subscribe(country => this.toogleUnpLength(country));
   }
 

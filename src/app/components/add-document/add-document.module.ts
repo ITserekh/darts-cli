@@ -6,20 +6,20 @@ import {CostMaskDirective} from '../../directives/mask-directives/cost-mask.dire
 import { MaskDirectivesModule } from '../../directives/mask-directives/mask-directives.module';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
-import {InvalidMessageDirective} from '../../directives/invalid-message/invalid-message.directive';
+import { ValidatorsModule } from '../../directives/validators/validators.module';
 
 @NgModule({
-  declarations: [
-    AddDocumentComponent,
-    CostMaskDirective,
-    InvalidMessageDirective
-  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MaskDirectivesModule,
     OwlNativeDateTimeModule,
     OwlDateTimeModule,
+    ValidatorsModule,
+  ],
+  declarations: [
+    AddDocumentComponent,
+    CostMaskDirective,
   ],
   exports: [
     AddDocumentComponent
