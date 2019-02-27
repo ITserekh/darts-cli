@@ -7,6 +7,7 @@ import { MaskDirectivesModule } from '../../directives/mask-directives/mask-dire
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { ValidatorsModule } from '../../directives/validators/validators.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ValidatorsModule } from '../../directives/validators/validators.module'
     OwlNativeDateTimeModule,
     OwlDateTimeModule,
     ValidatorsModule,
+    TranslateModule
   ],
   declarations: [
     AddDocumentComponent,

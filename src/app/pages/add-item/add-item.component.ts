@@ -12,7 +12,8 @@ export class AddItemComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private bankDataService: BankDataService) { }
+              private bankDataService: BankDataService) {
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({

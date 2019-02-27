@@ -1,0 +1,21 @@
+{
+  "test": "ngx-translate работает",
+  "default-validators-massages": {
+    "validators": {
+      "required": "Введите значение",
+      "maxlength": "Превышена допустимая длина",
+      "minlength": "Недостаточная длина"
+    }
+  },
+  "document-validators-messages": {
+    "validators": {
+      "number": {
+        "required": "Введите номер документа"
+      },
+      "unp": {
+        "required": "Введиете УНП",
+        "maxlength": "Длина УНП превышена"
+      }
+    }
+  }
+}

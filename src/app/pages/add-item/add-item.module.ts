@@ -11,6 +11,13 @@ import { BankTableComponent } from '../../components/bank-table/bank-table.compo
 import { CustomTableModule } from '../../custom-table.module';
 import { AddDocumentModule } from '../../components/add-document/add-document.module';
 import { MaskDirectivesModule } from '../../directives/mask-directives/mask-directives.module';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -24,7 +31,15 @@ import { MaskDirectivesModule } from '../../directives/mask-directives/mask-dire
     FormsModule,
     CustomTableModule,
     AddDocumentModule,
-    MaskDirectivesModule
+    MaskDirectivesModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      },
+      isolate: false
+    })
   ]
 })
 export class AddItemModule { }

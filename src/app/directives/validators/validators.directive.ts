@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, ElementRef, Renderer2, QueryList, ContentChildren } from '@angular/core';
+import { Directive, Input, OnInit, ElementRef, Renderer2, QueryList, ContentChildren, AfterContentChecked } from '@angular/core';
 import { ValidatorsInterface } from '../../services/interfaces/validators-interface';
 import { ControlContainer } from '@angular/forms';
 import { ErrorMessageDirective } from './error-message.directive';
@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Directive({
   selector: '[appValidators]'
 })
-export class ValidatorsDirective implements OnInit {
+export class ValidatorsDirective implements OnInit, AfterContentChecked {
 
   customValidatorsMessages: ValidatorsInterface;
   defaultValidatorsMessages: ValidatorsInterface = { validators: {}};
@@ -25,14 +25,20 @@ export class ValidatorsDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    this.translate.get('default-validators-massages').subscribe(validators => {
-      this.defaultValidatorsMessages = validators;
+    this.getMessages();
+    this.translate.onLangChange.subscribe( () => {
+      this.getMessages();
+      this.setInvalid();
     });
     this.formGroup.statusChanges.subscribe((status) => {
       if (status === 'INVALID') {
         this.setInvalid();
       }
     });
+  }
+
+  ngAfterContentChecked() {
+    this.setInvalid();
   }
 
   setInvalid() {
@@ -94,5 +100,11 @@ export class ValidatorsDirective implements OnInit {
     });
     // @ts-ignore
     elementForMessage.elementRef.nativeElement.innerHTML = '';
+  }
+
+  getMessages() {
+    this.translate.get('default-validators-massages').subscribe(validators => {
+      this.defaultValidatorsMessages = validators;
+    });
   }
 }

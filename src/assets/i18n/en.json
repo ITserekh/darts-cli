@@ -1,4 +1,5 @@
 {
+  "test": "ngx-translate is working",
   "default-validators-massages": {
     "validators": {
       "required": "Please, enter value",

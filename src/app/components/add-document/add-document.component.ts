@@ -44,9 +44,9 @@ export class AddDocumentComponent implements OnInit {
       this.countryList.push ({code: key, name: this.countyCode[key].name});
     }
     this.initForm();
-    this.translate.get('document-validators-messages').subscribe(validators => {
-      console.log(validators);
-      this.validatorsMessages = validators;
+    this.getMessages();
+    this.translate.onLangChange.subscribe( () => {
+      this.getMessages();
     });
   }
 
@@ -96,5 +96,10 @@ export class AddDocumentComponent implements OnInit {
       result.cost = result.cost.replace(/\s+/g, '');
       console.log(result);
     }
+  }
+  getMessages() {
+    this.translate.get('document-validators-messages').subscribe(validators => {
+      this.validatorsMessages = validators;
+    });
   }
 }
